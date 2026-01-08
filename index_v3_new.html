@@ -64,13 +64,12 @@
     
         /* --- MODERN SLIDER STYLES --- */
         .slider-row {
-            padding: 4px 0 2px 4px; /* Tighter padding */
+            padding: 4px 0 2px 4px;
             margin-bottom: 0px;
         }
         
-        /* Container for spacing logic */
         .control-group-container {
-            margin-bottom: 12px; /* Adds space after the entire group */
+            margin-bottom: 12px;
         }
         
         .slider-label-text {
@@ -79,7 +78,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 4px; /* Closer to slider */
+            margin-bottom: 4px;
             font-weight: 500;
         }
 
@@ -98,7 +97,6 @@
             appearance: none;
             width: 100%; 
             height: 6px;
-            /* Background is now controlled via JS for the "fill" effect */
             background: #e5e7eb; 
             border-radius: 3px;
             outline: none;
@@ -116,7 +114,7 @@
             border-radius: 50%;
             background: #ffffff;
             cursor: pointer;
-            margin-top: -6px; /* Center on track */
+            margin-top: -6px;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
             border: 1px solid #d1d5db;
             transition: transform 0.1s ease, border-color 0.1s ease;
@@ -137,7 +135,7 @@
             border: 1px solid #d1d5db;
         }
 
-        /* Track Styles - Set to transparent so the input's background gradient shows */
+        /* Track Styles */
         .custom-slider::-webkit-slider-runnable-track {
             width: 100%;
             height: 6px;
@@ -156,9 +154,8 @@
 
         /* Disabled state */
         .slider-disabled {
-            opacity: 0.5; /* Semi-transparent but retains color */
+            opacity: 0.5;
             pointer-events: none;
-            /* Removed grayscale filter to keep color visible */
             transition: opacity 0.3s ease;
         }
 
@@ -193,7 +190,12 @@
         }
 
         .leaflet-control-layers-selector:checked {
-            background-color: #16a34a; /* Green 600 */
+            background-color: #16a34a; /* Green 600 - Default */
+        }
+        
+        /* Specific Red Color for AOI Toggle using :has() selector */
+        .leaflet-control-layers-selector:has(+ span .aoi-label):checked {
+            background-color: #dc2626; /* Red 600 */
         }
 
         .leaflet-control-layers-selector:checked::after {
@@ -468,13 +470,13 @@
         
         var googleLabel = 'Google Earth<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="0.7" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0"></div>';
 
-        // Moved AOI to the bottom
+        // Moved AOI to the bottom, Removed Image, Added Span Class for coloring
         var overlaysTree = [
             {label: flowsLabel, layer: layer_LCflows20202024_4},
             {label: statusControlsHTML, layer: group_LCStatus},
             {label: osmLabel, layer: layer_OpenStreetMap_1, radioGroup: 'bm' },
             {label: googleLabel, layer: layer_GoogleEarth_0, radioGroup: 'bm' },
-            {label: '<div style="display:flex; align-items:center;"><img src="legend/AOIGreenNexus_5.png" style="margin-right:8px; height:16px;" /> AOI: Green Nexus</div>', layer: layer_AOIGreenNexus_5},
+            {label: '<div style="display:flex; align-items:center;"><span class="aoi-label">AOI: Green Nexus</span></div>', layer: layer_AOIGreenNexus_5},
         ];
         
         var lay = L.control.layers.tree(null, overlaysTree,{
@@ -505,6 +507,22 @@
                 // Explicitly skip shading for Year Slider
                 if (slider.id === 'year-tree-slider') {
                     slider.style.background = '#e5e7eb'; // Default gray
+                    return;
+                }
+                
+                // --- NEW LOGIC: CHECK IF DISABLED ---
+                // If the slider wrapper has "slider-disabled" class, force gray background
+                // We check the closest .slider-row or .control-group-container for the class
+                // But specifically for Status/Flows, the wrapper ID has the class.
+                
+                var parentWrapper = slider.closest('#status-controls-wrapper') || slider.closest('#flows-slider-wrapper');
+                
+                // Note: Generic sliders (OSM/Google) don't have a wrapper that gets disabled in the logic below
+                // So they will always show color unless we add logic for them.
+                // However, the current logic only disables Status/Flows.
+                
+                if (parentWrapper && parentWrapper.classList.contains('slider-disabled')) {
+                    slider.style.background = '#e5e7eb';
                     return;
                 }
 
@@ -624,7 +642,7 @@
                         if(sw) sw.classList.add('slider-disabled');
                         if(fw) fw.classList.remove('slider-disabled');
                         
-                        refreshShading(); // Ensure slider has color
+                        refreshShading(); // Update colors
                     }, 10);
                 }
                 
@@ -640,7 +658,7 @@
                         if(sw) sw.classList.remove('slider-disabled');
                         if(fw) fw.classList.add('slider-disabled');
                         
-                        refreshShading(); // Ensure slider has color
+                        refreshShading(); // Update colors
                     }, 10);
                 }
             });
@@ -653,10 +671,12 @@
                 if (e.layer === group_LCStatus) {
                     // Status OFF -> Disable Status Sliders
                     if(statusWrapper) statusWrapper.classList.add('slider-disabled');
+                    setTimeout(initSliderShading, 10); // Refresh to remove color
                 }
                 if (e.layer === layer_LCflows20202024_4) {
                     // Flows OFF -> Disable Flows Slider
                     if(flowsWrapper) flowsWrapper.classList.add('slider-disabled');
+                    setTimeout(initSliderShading, 10); // Refresh to remove color
                 }
             });
             
