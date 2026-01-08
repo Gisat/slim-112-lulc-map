@@ -26,12 +26,12 @@
             right: 55px; 
             z-index: 2000 !important;
             background-color: white;
-            border-radius: 8px; /* More rounded */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Modern shadow */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             width: auto;
             min-width: 140px;
             max-width: 250px;
-            overflow: hidden; /* For rounded corners */
+            overflow: hidden;
         }
 
         .legend-header {
@@ -40,11 +40,11 @@
             border-bottom: 1px solid #f3f4f6;
             font-size: 0.9em;
             font-weight: 600;
-            color: #111827; /* Gray 900 */
+            color: #111827;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #f9fafb; /* Gray 50 */
+            background: #f9fafb;
         }
         
         .legend-header:hover {
@@ -64,24 +64,29 @@
     
         /* --- MODERN SLIDER STYLES --- */
         .slider-row {
-            padding: 8px 0 8px 4px; /* More breathing room */
-            margin-bottom: 4px;
+            padding: 4px 0 2px 4px; /* Tighter padding */
+            margin-bottom: 0px;
+        }
+        
+        /* Container for spacing logic */
+        .control-group-container {
+            margin-bottom: 12px; /* Adds space after the entire group */
         }
         
         .slider-label-text {
             font-size: 12px;
-            color: #4b5563; /* Gray 600 */
+            color: #4b5563;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 4px; /* Closer to slider */
             font-weight: 500;
         }
 
         .active-value {
             font-weight: 600;
-            color: #15803d; /* Green 700 - Matching Portal Theme */
-            background-color: #dcfce7; /* Green 100 */
+            color: #15803d;
+            background-color: #dcfce7;
             padding: 2px 8px;
             border-radius: 12px;
             font-size: 11px;
@@ -93,7 +98,8 @@
             appearance: none;
             width: 100%; 
             height: 6px;
-            background: #e5e7eb; /* Gray 200 */
+            /* Background is now controlled via JS for the "fill" effect */
+            background: #e5e7eb; 
             border-radius: 3px;
             outline: none;
             margin: 0;
@@ -112,12 +118,12 @@
             cursor: pointer;
             margin-top: -6px; /* Center on track */
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            border: 1px solid #d1d5db; /* Gray 300 */
+            border: 1px solid #d1d5db;
             transition: transform 0.1s ease, border-color 0.1s ease;
         }
         
         .custom-slider::-webkit-slider-thumb:hover {
-            border-color: #16a34a; /* Green 600 */
+            border-color: #16a34a;
             transform: scale(1.1);
         }
 
@@ -131,12 +137,12 @@
             border: 1px solid #d1d5db;
         }
 
-        /* Track Styles */
+        /* Track Styles - Set to transparent so the input's background gradient shows */
         .custom-slider::-webkit-slider-runnable-track {
             width: 100%;
             height: 6px;
             cursor: pointer;
-            background: #e5e7eb;
+            background: transparent; 
             border-radius: 3px;
         }
         
@@ -144,7 +150,7 @@
             width: 100%;
             height: 6px;
             cursor: pointer;
-            background: #e5e7eb;
+            background: transparent;
             border-radius: 3px;
         }
 
@@ -157,13 +163,12 @@
         }
 
         /* --- MODERN TOGGLE SWITCHES FOR LAYER CONTROL --- */
-        /* Hide default checkbox/radio */
         .leaflet-control-layers-selector {
             appearance: none;
             -webkit-appearance: none;
             height: 20px;
             width: 36px;
-            background-color: #e5e7eb; /* Gray 200 */
+            background-color: #e5e7eb;
             border-radius: 20px;
             position: relative;
             cursor: pointer;
@@ -174,7 +179,6 @@
             top: -1px;
         }
 
-        /* The circle knob */
         .leaflet-control-layers-selector::after {
             content: '';
             position: absolute;
@@ -188,19 +192,16 @@
             transition: transform 0.2s ease;
         }
 
-        /* Checked State */
         .leaflet-control-layers-selector:checked {
-            background-color: #16a34a; /* Green 600 */
+            background-color: #16a34a;
         }
 
         .leaflet-control-layers-selector:checked::after {
             transform: translateX(16px);
         }
         
-        /* Radio button specific - make it slightly different if desired, 
-           but the toggle style works well for both in this context. */
         input[type="radio"].leaflet-control-layers-selector:checked {
-            background-color: #2563eb; /* Blue 600 for basemaps to distinguish */
+            background-color: #2563eb;
         }
 
         /* --- LAYER CONTROL CONTAINER --- */
@@ -214,12 +215,11 @@
         }
 
         .leaflet-control-layers-tree {
-            font-size: 13px; /* Slightly larger text */
-            min-width: 260px; /* Wider to accommodate sliders */
-            color: #374151; /* Gray 700 */
+            font-size: 13px;
+            min-width: 260px;
+            color: #374151;
         }
         
-        /* Spacing between layer items */
         .leaflet-control-layers-overlays > label,
         .leaflet-control-layers-base > label {
             display: flex;
@@ -236,7 +236,7 @@
         
         .slider-dots {
             position: absolute;
-            top: 13px; /* Align with track center */
+            top: 13px;
             left: 2px;
             right: 2px;
             display: flex;
@@ -248,7 +248,7 @@
         .dot {
             width: 4px;
             height: 4px;
-            background-color: #9ca3af; /* Gray 400 */
+            background-color: #9ca3af;
             border-radius: 50%;
         }
 
@@ -439,12 +439,11 @@
         map.addLayer(group_LCStatus);
 
         /* --- HTML FOR CUSTOM CONTROLS IN LAYER TREE --- */
-        /* Redesigned to use flexbox properly and cleaner labels */
         
-        // 1. LC Status Controls
+        // 1. LC Status Controls - Wrapped in a container with bottom margin
         var statusControlsHTML = 
             'LC Status <span id="year-tree-display" class="active-value">2024</span>' +
-            '<div id="status-controls-wrapper">' + 
+            '<div id="status-controls-wrapper" class="control-group-container">' + 
                 '<div class="slider-row">' +
                     '<div class="slider-label-text"><span>Select Year</span></div>' +
                     '<div class="slider-wrapper">' +
@@ -461,20 +460,21 @@
             '</div>';
 
         /* --- LAYER TREE CONFIG --- */
-        /* Labels with updated typography */
         
-        var flowsLabel = 'LC Flows <span style="font-size:11px; color:#6b7280; font-weight:400;">(2020-2024)</span><div id="flows-slider-wrapper" class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_LCflows20202024_4"></div>';
+        // Added class="control-group-container" to add space below this group
+        var flowsLabel = 'LC Flows <span style="font-size:11px; color:#6b7280; font-weight:400;">(2020-2024)</span><div id="flows-slider-wrapper" class="slider-row control-group-container"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_LCflows20202024_4"></div>';
         
         var osmLabel = 'Open Street Map<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1"></div>';
         
         var googleLabel = 'Google Earth<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="0.7" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0"></div>';
 
+        // Moved AOI to the bottom
         var overlaysTree = [
-            {label: '<div style="display:flex; align-items:center;"><img src="legend/AOIGreenNexus_5.png" style="margin-right:8px; height:16px;" /> AOI: Green Nexus</div><div style="margin-bottom:8px;"></div>', layer: layer_AOIGreenNexus_5},
             {label: flowsLabel, layer: layer_LCflows20202024_4},
             {label: statusControlsHTML, layer: group_LCStatus},
             {label: osmLabel, layer: layer_OpenStreetMap_1, radioGroup: 'bm' },
             {label: googleLabel, layer: layer_GoogleEarth_0, radioGroup: 'bm' },
+            {label: '<div style="display:flex; align-items:center;"><img src="legend/AOIGreenNexus_5.png" style="margin-right:8px; height:16px;" /> AOI: Green Nexus</div>', layer: layer_AOIGreenNexus_5},
         ];
         
         var lay = L.control.layers.tree(null, overlaysTree,{
@@ -498,9 +498,34 @@
 
             let currentIndex = 5; // Default 2024
 
+            /* --- HELPER FOR SLIDER SHADING --- */
+            function updateSliderBackground(slider) {
+                if (!slider) return;
+                const min = slider.min ? parseFloat(slider.min) : 0;
+                const max = slider.max ? parseFloat(slider.max) : 100;
+                const val = parseFloat(slider.value);
+                // Calculate percentage
+                const percentage = ((val - min) / (max - min)) * 100;
+                // Update linear gradient
+                slider.style.background = `linear-gradient(to right, #16a34a ${percentage}%, #e5e7eb ${percentage}%)`;
+            }
+
+            // Initialize all sliders with shading
+            function initSliderShading() {
+                const sliders = document.querySelectorAll('.custom-slider');
+                sliders.forEach(slider => {
+                    updateSliderBackground(slider);
+                });
+            }
+
             /* --- EVENT DELEGATION --- */
             document.addEventListener('input', function(e) {
                 if (!e.target) return;
+                
+                // Update shading if it's a slider
+                if (e.target.classList.contains('custom-slider')) {
+                    updateSliderBackground(e.target);
+                }
 
                 // Handle Year Slider
                 if (e.target.id === 'year-tree-slider') {
@@ -620,6 +645,9 @@
                  if (!map.hasLayer(layer_LCflows20202024_4) && flowsWrapper) {
                      flowsWrapper.classList.add('slider-disabled');
                  }
+                 
+                 // INITIALIZE SHADING
+                 initSliderShading();
             }, 500);
 
             /* --- LEGEND TOGGLE --- */
