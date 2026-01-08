@@ -16,39 +16,45 @@
             height: 100%;
             padding: 0;
             margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         /* --- LEGEND STYLES --- */
         .legend-container {
             position: absolute;
             bottom: 28px;
-            /* CHANGED: Increased right value to align with the layer control container */
             right: 55px; 
-            /* UPDATED: High Z-index ensures it stays on top of the Layer Control */
             z-index: 2000 !important;
             background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-            font-family: Arial, sans-serif;
-
-            /* --- ADD WIDTH HERE --- */
-            width: auto;          /* Adapts to content */
-            /* Optional: prevent it from getting too small if content changes */
-            min-width: 120px;     /* Minimum width for the header text */
-            max-width: 250px;     /* Maximum width when rolled out */
+            border-radius: 8px; /* More rounded */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Modern shadow */
+            width: auto;
+            min-width: 140px;
+            max-width: 250px;
+            overflow: hidden; /* For rounded corners */
         }
 
         .legend-header {
-            padding: 10px;
+            padding: 12px 16px;
             cursor: pointer;
-            border-bottom: 1px solid #eee;
-            font-size: 0.88em;
-            font-weight: bold;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #111827; /* Gray 900 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9fafb; /* Gray 50 */
+        }
+        
+        .legend-header:hover {
+            background: #f3f4f6;
         }
 
         .legend-image {
-            padding: 10px;
+            padding: 12px;
             display: block;
+            background: white;
         }
 
         .legend-image.hidden {
@@ -56,99 +62,206 @@
             padding: 0;
         }
     
-        /* --- SLIDER STYLES --- */
+        /* --- MODERN SLIDER STYLES --- */
+        .slider-row {
+            padding: 8px 0 8px 4px; /* More breathing room */
+            margin-bottom: 4px;
+        }
+        
+        .slider-label-text {
+            font-size: 12px;
+            color: #4b5563; /* Gray 600 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .active-value {
+            font-weight: 600;
+            color: #15803d; /* Green 700 - Matching Portal Theme */
+            background-color: #dcfce7; /* Green 100 */
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+
+        /* The Range Input */
         .custom-slider {
             -webkit-appearance: none;
             appearance: none;
             width: 100%; 
-            height: 8px;
-            background: transparent;
+            height: 6px;
+            background: #e5e7eb; /* Gray 200 */
+            border-radius: 3px;
             outline: none;
-            vertical-align: middle;
-            margin-top: 5px;
-            margin-bottom: 5px;
+            margin: 0;
             cursor: pointer;
+            position: relative;
+            z-index: 2;
         }
 
-        .custom-slider::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 2px;
-            cursor: pointer;
-            background: #a9d7ff;
-        }
-        .custom-slider::-moz-range-track {
-            width: 100%;
-            height: 2px;
-            cursor: pointer;
-            background: #a9d7ff;
-        }
-
+        /* Thumb Styles */
         .custom-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 10px;
-            width: 10px;
+            height: 18px;
+            width: 18px;
             border-radius: 50%;
-            background: #007bff;
+            background: #ffffff;
             cursor: pointer;
-            margin-top: -4px;
-            border: 1px solid #fff;
-            box-shadow: 0 0 2px rgba(0,0,0,0.3);
-        }
-        .custom-slider::-moz-range-thumb {
-            height: 10px;
-            width: 10px;
-            border-radius: 50%;
-            background: #007bff;
-            cursor: pointer;
-            border: 1px solid #fff;
-            box-shadow: 0 0 2px rgba(0,0,0,0.3);
+            margin-top: -6px; /* Center on track */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border: 1px solid #d1d5db; /* Gray 300 */
+            transition: transform 0.1s ease, border-color 0.1s ease;
         }
         
-        /* Disabled state for sliders */
+        .custom-slider::-webkit-slider-thumb:hover {
+            border-color: #16a34a; /* Green 600 */
+            transform: scale(1.1);
+        }
+
+        .custom-slider::-moz-range-thumb {
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid #d1d5db;
+        }
+
+        /* Track Styles */
+        .custom-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #e5e7eb;
+            border-radius: 3px;
+        }
+        
+        .custom-slider::-moz-range-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #e5e7eb;
+            border-radius: 3px;
+        }
+
+        /* Disabled state */
         .slider-disabled {
-            opacity: 0.4;
+            opacity: 0.5;
             pointer-events: none;
             filter: grayscale(100%);
             transition: opacity 0.3s ease;
         }
 
-        /* Tree Layout Tweaks */
+        /* --- MODERN TOGGLE SWITCHES FOR LAYER CONTROL --- */
+        /* Hide default checkbox/radio */
+        .leaflet-control-layers-selector {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 20px;
+            width: 36px;
+            background-color: #e5e7eb; /* Gray 200 */
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-right: 8px;
+            outline: none;
+            transition: background-color 0.2s ease;
+            top: -1px;
+        }
+
+        /* The circle knob */
+        .leaflet-control-layers-selector::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        /* Checked State */
+        .leaflet-control-layers-selector:checked {
+            background-color: #16a34a; /* Green 600 */
+        }
+
+        .leaflet-control-layers-selector:checked::after {
+            transform: translateX(16px);
+        }
+        
+        /* Radio button specific - make it slightly different if desired, 
+           but the toggle style works well for both in this context. */
+        input[type="radio"].leaflet-control-layers-selector:checked {
+            background-color: #2563eb; /* Blue 600 for basemaps to distinguish */
+        }
+
+        /* --- LAYER CONTROL CONTAINER --- */
+        .leaflet-control-layers {
+            z-index: 1001 !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+            border-radius: 8px !important;
+            border: none !important;
+            padding: 12px !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
         .leaflet-control-layers-tree {
-            font-size: 12px;
-            min-width: 230px;
+            font-size: 13px; /* Slightly larger text */
+            min-width: 260px; /* Wider to accommodate sliders */
+            color: #374151; /* Gray 700 */
         }
         
-        .slider-row {
-            padding-left: 20px;
-            padding-right: 5px;
-            margin-bottom: 5px;
+        /* Spacing between layer items */
+        .leaflet-control-layers-overlays > label,
+        .leaflet-control-layers-base > label {
+            display: flex;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        /* --- DOTS FOR YEAR SLIDER --- */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 5px;
         }
         
-        .slider-label-text {
-            font-size: 11px;
-            color: #555;
+        .slider-dots {
+            position: absolute;
+            top: 13px; /* Align with track center */
+            left: 2px;
+            right: 2px;
             display: flex;
             justify-content: space-between;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        .active-value {
-            font-weight: bold;
-            color: #007bff;
+        .dot {
+            width: 4px;
+            height: 4px;
+            background-color: #9ca3af; /* Gray 400 */
+            border-radius: 50%;
         }
 
-        .leaflet-control-layers {
-            /* Lower than legend-container (2000) so legend stays on top */
-            z-index: 1001 !important;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.4) !important;
-            border-radius: 5px !important;
-        }
         </style>
         <title></title>
     </head>
     <body>
         <div id="map">
             <div class="legend-container">
-                <div class="legend-header">LC legend <i class="fa fa-caret-up"></i></div>
+                <div class="legend-header">
+                    <span>LC Legend</span>
+                    <i class="fa fa-caret-up"></i>
+                </div>
                 <img src="legend.png" alt="Map Legend" class="legend-image hidden">
             </div>
         </div>
@@ -186,18 +299,18 @@
          return tempDiv.innerHTML;
         }
         
-		function addClassToPopupIfMedia(content, popup) {
-			var tempDiv = document.createElement('div');
-			tempDiv.innerHTML = content;
-			if (tempDiv.querySelector('td img')) {
-				popup._contentNode.classList.add('media');
-					setTimeout(function() {
-						popup.update();
-					}, 10);
-			} else {
-				popup._contentNode.classList.remove('media');
-			}
-		}
+        function addClassToPopupIfMedia(content, popup) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            if (tempDiv.querySelector('td img')) {
+                popup._contentNode.classList.add('media');
+                    setTimeout(function() {
+                        popup.update();
+                    }, 10);
+            } else {
+                popup._contentNode.classList.remove('media');
+            }
+        }
         var zoomControl = L.control.zoom({
             position: 'bottomright'
         }).addTo(map);
@@ -285,10 +398,10 @@
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
+            layer.on('popupopen', function(e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_AOIGreenNexus_5_0() {
@@ -326,32 +439,38 @@
         map.addLayer(group_LCStatus);
 
         /* --- HTML FOR CUSTOM CONTROLS IN LAYER TREE --- */
+        /* Redesigned to use flexbox properly and cleaner labels */
         
         // 1. LC Status Controls
         var statusControlsHTML = 
             'LC Status <span id="year-tree-display" class="active-value">2024</span>' +
             '<div id="status-controls-wrapper">' + 
                 '<div class="slider-row">' +
-                    /* ADDED style="font-weight: bold;" HERE */
-                    '<div class="slider-label-text"><span style="font-weight: bold;">Year</span></div>' +
-                    '<input type="range" min="0" max="5" value="5" class="custom-slider" id="year-tree-slider">' +
+                    '<div class="slider-label-text"><span>Select Year</span></div>' +
+                    '<div class="slider-wrapper">' +
+                        '<div class="slider-dots">' +
+                            '<div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>' +
+                        '</div>' +
+                        '<input type="range" min="0" max="5" value="5" class="custom-slider" id="year-tree-slider" title="Drag to change year">' +
+                    '</div>' +
                 '</div>' +
                 '<div class="slider-row">' +
-                    '<div class="slider-label-text"><span>Transparency</span><span id="opacity-tree-display">100%</span></div>' +
+                    '<div class="slider-label-text"><span>Transparency</span><span id="opacity-tree-display" style="font-size:11px; color:#6b7280;">100%</span></div>' +
                     '<input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider" id="opacity-tree-slider">' +
                 '</div>' +
             '</div>';
 
         /* --- LAYER TREE CONFIG --- */
-        var flowsLabel = 'LC Flows 2020-2024<div id="flows-slider-wrapper" class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_LCflows20202024_4"></div>';
+        /* Labels with updated typography */
         
-        /* UPDATED: Renamed label to "Open Street Map" */
+        var flowsLabel = 'LC Flows <span style="font-size:11px; color:#6b7280; font-weight:400;">(2020-2024)</span><div id="flows-slider-wrapper" class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_LCflows20202024_4"></div>';
+        
         var osmLabel = 'Open Street Map<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1"></div>';
         
         var googleLabel = 'Google Earth<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="0.7" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0"></div>';
 
         var overlaysTree = [
-            {label: '<img src="legend/AOIGreenNexus_5.png" /> AOI: Green Nexus<br><br>', layer: layer_AOIGreenNexus_5},
+            {label: '<div style="display:flex; align-items:center;"><img src="legend/AOIGreenNexus_5.png" style="margin-right:8px; height:16px;" /> AOI: Green Nexus</div><div style="margin-bottom:8px;"></div>', layer: layer_AOIGreenNexus_5},
             {label: flowsLabel, layer: layer_LCflows20202024_4},
             {label: statusControlsHTML, layer: group_LCStatus},
             {label: osmLabel, layer: layer_OpenStreetMap_1, radioGroup: 'bm' },
@@ -504,18 +623,18 @@
             }, 500);
 
             /* --- LEGEND TOGGLE --- */
-    	    const legendHeader = document.querySelector('.legend-header');
-    	    const legendImage = document.querySelector('.legend-image');
+            const legendHeader = document.querySelector('.legend-header');
+            const legendImage = document.querySelector('.legend-image');
             const legendIcon = legendHeader.querySelector('i');
 
-    	    legendHeader.addEventListener('click', function() {
+            legendHeader.addEventListener('click', function() {
                 legendImage.classList.toggle('hidden');
                 if (legendImage.classList.contains('hidden')) {
                     legendIcon.className = 'fa fa-caret-up';
                 } else {
                     legendIcon.className = 'fa fa-caret-down';
                 }
-    	    });
+            });
         </script>
     </body>
 </html>
