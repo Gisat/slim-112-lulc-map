@@ -64,12 +64,14 @@
     
         /* --- MODERN SLIDER STYLES --- */
         .slider-row {
-            padding: 4px 0 2px 4px;
+            padding: 4px 0 2px 0; /* Removed left padding to align with edge */
             margin-bottom: 0px;
+            width: 100%; /* Ensure full width */
         }
         
         .control-group-container {
             margin-bottom: 16px;
+            width: 100%; /* Ensure full width */
         }
         
         .slider-label-text {
@@ -174,6 +176,7 @@
             outline: none;
             transition: background-color 0.2s ease;
             top: -1px;
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         .leaflet-control-layers-selector::after {
