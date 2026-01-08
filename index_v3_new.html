@@ -69,7 +69,7 @@
         }
         
         .control-group-container {
-            margin-bottom: 12px;
+            margin-bottom: 16px; /* Increased padding/distance */
         }
         
         .slider-label-text {
@@ -466,17 +466,18 @@
         // Added class="control-group-container" to add space below this group
         var flowsLabel = 'LC Flows <span style="font-size:11px; color:#6b7280; font-weight:400;">(2020-2024)</span><div id="flows-slider-wrapper" class="slider-row control-group-container"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_LCflows20202024_4"></div>';
         
-        var osmLabel = 'Open Street Map<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1"></div>';
+        // ADDED control-group-container to generic sliders for spacing
+        var osmLabel = 'Open Street Map<div class="slider-row control-group-container"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1"></div>';
         
-        var googleLabel = 'Google Earth<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="0.7" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0"></div>';
+        var googleLabel = 'Google Earth<div class="slider-row control-group-container"><input type="range" min="0" max="1" step="0.1" value="0.7" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0"></div>';
 
-        // Moved AOI to the bottom, Removed Image, Added Span Class for coloring
+        // UPDATED AOI label structure to be a simple span for correct alignment
         var overlaysTree = [
             {label: flowsLabel, layer: layer_LCflows20202024_4},
             {label: statusControlsHTML, layer: group_LCStatus},
             {label: osmLabel, layer: layer_OpenStreetMap_1, radioGroup: 'bm' },
             {label: googleLabel, layer: layer_GoogleEarth_0, radioGroup: 'bm' },
-            {label: '<div style="display:flex; align-items:center;"><span class="aoi-label">AOI: Green Nexus</span></div>', layer: layer_AOIGreenNexus_5},
+            {label: '<span class="aoi-label">AOI: Green Nexus</span>', layer: layer_AOIGreenNexus_5},
         ];
         
         var lay = L.control.layers.tree(null, overlaysTree,{
@@ -510,20 +511,23 @@
                     return;
                 }
                 
-                // --- NEW LOGIC: CHECK IF DISABLED ---
-                // If the slider wrapper has "slider-disabled" class, force gray background
-                // We check the closest .slider-row or .control-group-container for the class
-                // But specifically for Status/Flows, the wrapper ID has the class.
-                
+                // --- 1. CHECK WRAPPER (For Status/Flows) ---
                 var parentWrapper = slider.closest('#status-controls-wrapper') || slider.closest('#flows-slider-wrapper');
-                
-                // Note: Generic sliders (OSM/Google) don't have a wrapper that gets disabled in the logic below
-                // So they will always show color unless we add logic for them.
-                // However, the current logic only disables Status/Flows.
                 
                 if (parentWrapper && parentWrapper.classList.contains('slider-disabled')) {
                     slider.style.background = '#e5e7eb';
                     return;
+                }
+
+                // --- 2. CHECK GENERIC LAYERS (For OSM/Google) ---
+                // If a generic layer is NOT on the map, force gray
+                const layerName = slider.getAttribute('data-layer');
+                if (layerName) {
+                    const layer = window[layerName];
+                    if (layer && !map.hasLayer(layer)) {
+                        slider.style.background = '#e5e7eb';
+                        return;
+                    }
                 }
 
                 const min = slider.min ? parseFloat(slider.min) : 0;
@@ -537,7 +541,6 @@
                 let color = '22, 163, 74'; // rgb(22, 163, 74) = #16a34a
 
                 // Check for Blue layers (Basemaps: OSM, Google)
-                const layerName = slider.getAttribute('data-layer');
                 if (layerName && (layerName.includes('OpenStreetMap') || layerName.includes('GoogleEarth'))) {
                     color = '37, 99, 235'; // rgb(37, 99, 235) = #2563eb
                 }
@@ -661,6 +664,11 @@
                         refreshShading(); // Update colors
                     }, 10);
                 }
+                
+                // 3. For Basemaps/Generic Layers, simply refresh shading
+                // This ensures that when OSM/Google is toggled ON, its slider gets color
+                // and the other one gets grayed out (since they are mutually exclusive radio buttons)
+                setTimeout(refreshShading, 10);
             });
 
             map.on('overlayremove', function(e) {
@@ -678,6 +686,9 @@
                     if(flowsWrapper) flowsWrapper.classList.add('slider-disabled');
                     setTimeout(initSliderShading, 10); // Refresh to remove color
                 }
+                
+                // For generic layers, refresh shading to gray it out
+                setTimeout(initSliderShading, 10);
             });
             
             // Initial Check on Load
