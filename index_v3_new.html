@@ -156,9 +156,9 @@
 
         /* Disabled state */
         .slider-disabled {
-            opacity: 0.5;
+            opacity: 0.5; /* Semi-transparent but retains color */
             pointer-events: none;
-            filter: grayscale(100%);
+            /* Removed grayscale filter to keep color visible */
             transition: opacity 0.3s ease;
         }
 
@@ -193,7 +193,7 @@
         }
 
         .leaflet-control-layers-selector:checked {
-            background-color: #16a34a;
+            background-color: #16a34a; /* Green 600 */
         }
 
         .leaflet-control-layers-selector:checked::after {
@@ -201,7 +201,7 @@
         }
         
         input[type="radio"].leaflet-control-layers-selector:checked {
-            background-color: #2563eb;
+            background-color: #2563eb; /* Blue 600 */
         }
 
         /* --- LAYER CONTROL CONTAINER --- */
@@ -501,13 +501,32 @@
             /* --- HELPER FOR SLIDER SHADING --- */
             function updateSliderBackground(slider) {
                 if (!slider) return;
+
+                // Explicitly skip shading for Year Slider
+                if (slider.id === 'year-tree-slider') {
+                    slider.style.background = '#e5e7eb'; // Default gray
+                    return;
+                }
+
                 const min = slider.min ? parseFloat(slider.min) : 0;
                 const max = slider.max ? parseFloat(slider.max) : 100;
                 const val = parseFloat(slider.value);
                 // Calculate percentage
                 const percentage = ((val - min) / (max - min)) * 100;
-                // Update linear gradient
-                slider.style.background = `linear-gradient(to right, #16a34a ${percentage}%, #e5e7eb ${percentage}%)`;
+
+                // Determine Color based on Layer Type
+                // Default is Green (LC Status, LC Flows)
+                let color = '22, 163, 74'; // rgb(22, 163, 74) = #16a34a
+
+                // Check for Blue layers (Basemaps: OSM, Google)
+                const layerName = slider.getAttribute('data-layer');
+                if (layerName && (layerName.includes('OpenStreetMap') || layerName.includes('GoogleEarth'))) {
+                    color = '37, 99, 235'; // rgb(37, 99, 235) = #2563eb
+                }
+
+                // Update linear gradient with fade effect
+                // Gradient goes from transparent-ish color to solid color up to the thumb
+                slider.style.background = `linear-gradient(to right, rgba(${color}, 0.2) 0%, rgba(${color}, 1) ${percentage}%, #e5e7eb ${percentage}%)`;
             }
 
             // Initialize all sliders with shading
@@ -588,6 +607,11 @@
                 var statusWrapper = document.getElementById('status-controls-wrapper');
                 var flowsWrapper = document.getElementById('flows-slider-wrapper');
 
+                // Helper to refresh shading when enabled
+                function refreshShading() {
+                    initSliderShading();
+                }
+
                 // 1. If Flows added
                 if (e.layer === layer_LCflows20202024_4) {
                     setTimeout(function() {
@@ -599,6 +623,8 @@
                         var fw = document.getElementById('flows-slider-wrapper');
                         if(sw) sw.classList.add('slider-disabled');
                         if(fw) fw.classList.remove('slider-disabled');
+                        
+                        refreshShading(); // Ensure slider has color
                     }, 10);
                 }
                 
@@ -613,6 +639,8 @@
                         var fw = document.getElementById('flows-slider-wrapper');
                         if(sw) sw.classList.remove('slider-disabled');
                         if(fw) fw.classList.add('slider-disabled');
+                        
+                        refreshShading(); // Ensure slider has color
                     }, 10);
                 }
             });
