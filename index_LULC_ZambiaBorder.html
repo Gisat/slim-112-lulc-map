@@ -19,28 +19,44 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* --- UNIFIED CONTROL STYLING (Legend, Layers, Zoom) --- */
+        
+        /* 1. Base Styles for all controls in the corners */
+        .leaflet-control-layers,
+        .leaflet-bar,
+        .legend-control {
+            border: 2px solid rgba(0,0,0,0.2) !important; /* Unified transparent gray border */
+            border-radius: 8px !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+            background-color: #fff;
+            overflow: hidden; 
+            background-clip: padding-box; /* Ensures border transparency looks correct */
+        }
+        
+        /* 2. Specific fix for Zoom Control buttons */
+        .leaflet-touch .leaflet-bar a:first-child {
+            border-top-left-radius: 6px !important; 
+            border-top-right-radius: 6px !important;
+        }
+        .leaflet-touch .leaflet-bar a:last-child {
+            border-bottom-left-radius: 6px !important;
+            border-bottom-right-radius: 6px !important;
+        }
+        
         /* --- LEGEND STYLES --- */
-        .legend-container {
-            position: absolute;
-            bottom: 28px;
-            right: 55px; 
-            z-index: 2000 !important;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            width: auto;
-            min-width: 140px;
+        .legend-control {
+            /* Shrink to fit content when collapsed, expand when open */
+            min-width: auto !important; 
+            width: fit-content !important;
             max-width: 250px;
-            overflow: hidden;
+            margin-bottom: 10px !important; 
         }
 
-        /* Shared Header Styles */
-        .legend-header, .layer-control-header {
+        .legend-header {
             padding: 12px 16px;
             cursor: pointer;
             border-bottom: 1px solid #f3f4f6;
             background-color: #f9fafb;
-            border-radius: 8px 8px 0 0;
             font-size: 0.9em;
             font-weight: 600;
             color: #111827;
@@ -48,14 +64,17 @@
             justify-content: space-between;
             align-items: center;
             transition: background-color 0.2s;
+            white-space: nowrap; 
+            /* Added gap to mimic the &nbsp;&nbsp; used in Layers panel */
+            gap: 8px;
         }
         
-        .legend-header:hover, .layer-control-header:hover {
+        .legend-header:hover {
             background-color: #f3f4f6;
         }
 
+        /* Remove bottom border when collapsed */
         .header-collapsed {
-            border-radius: 8px !important;
             border-bottom: none !important;
         }
 
@@ -63,168 +82,43 @@
             padding: 12px;
             display: block;
             background: white;
+            max-width: 100%;
         }
 
         .legend-image.hidden {
             display: none;
             padding: 0;
         }
-    
-        /* --- MODERN SLIDER STYLES --- */
-        .slider-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 5px;
-            height: 24px; /* Sufficient height for thumb */
-            display: flex;
-            align-items: center;
-        }
-
-        .custom-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%; 
-            height: 6px;
-            background: #e5e7eb; /* Default gray track */
-            border-radius: 3px;
-            outline: none;
-            margin: 0;
-            cursor: pointer;
-            position: relative;
-            z-index: 3;
-        }
-
-        /* Thumb Styles */
-        .custom-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 18px;
-            width: 18px;
-            border-radius: 50%;
-            background: #ffffff;
-            cursor: pointer;
-            margin-top: -6px; /* Centers thumb on 6px track */
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            border: 1px solid #d1d5db;
-            transition: transform 0.1s ease, border-color 0.1s ease;
-        }
         
-        .custom-slider::-webkit-slider-thumb:hover {
-            border-color: #16a34a; /* Green hover */
-            transform: scale(1.1);
-        }
-
-        .custom-slider::-moz-range-thumb {
-            height: 18px;
-            width: 18px;
-            border-radius: 50%;
-            background: #ffffff;
+        /* --- LAYER CONTROL STYLES --- */
+        .layer-control-header {
+            padding: 12px 16px;
             cursor: pointer;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-            border: 1px solid #d1d5db;
-        }
-
-        /* Track Styles */
-        .custom-slider::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 6px;
-            cursor: pointer;
-            background: transparent; 
-            border-radius: 3px;
-        }
-        .custom-slider::-moz-range-track {
-            width: 100%;
-            height: 6px;
-            cursor: pointer;
-            background: transparent;
-            border-radius: 3px;
-        }
-        
-        /* --- DOTS --- */
-        .slider-dots {
-            position: absolute;
-            left: 2px;  
-            right: 2px; 
-            top: 50%;
-            transform: translateY(-50%);
-            width: auto;
+            border-bottom: 1px solid #f3f4f6;
+            background-color: #f9fafb;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #111827;
             display: flex;
             justify-content: space-between;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .dot {
-            width: 4px;
-            height: 4px;
-            background-color: #9ca3af;
-            border-radius: 50%;
-        }
-
-        .slider-disabled {
-            opacity: 0.5;
-            pointer-events: none;
-            filter: grayscale(100%);
-            transition: opacity 0.3s ease;
-        }
-
-        /* --- MODERN TOGGLE SWITCHES --- */
-        .leaflet-control-layers-selector {
-            appearance: none;
-            -webkit-appearance: none;
-            height: 20px;
-            width: 36px;
-            background-color: #e5e7eb;
-            border-radius: 20px;
-            position: relative;
-            cursor: pointer;
-            vertical-align: middle;
-            margin-right: 10px;
-            outline: none;
-            transition: background-color 0.2s ease;
-            top: -1px;
-            border: none;
-        }
-
-        .leaflet-control-layers-selector::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 16px;
-            height: 16px;
-            background-color: white;
-            border-radius: 50%;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-            transition: transform 0.2s ease;
-        }
-
-        .leaflet-control-layers-selector:checked {
-            background-color: #16a34a; /* Green 600 - Matches Portal Landscape Theme */
+            align-items: center;
+            transition: background-color 0.2s;
+            white-space: nowrap;
         }
         
-        input[type="radio"].leaflet-control-layers-selector:checked {
-             background-color: #2563eb; /* Blue 600 for Basemaps */
+        .layer-control-header:hover {
+            background-color: #f3f4f6;
         }
 
-        .leaflet-control-layers-selector:checked::after {
-            transform: translateX(16px);
-        }
-
-        /* --- LAYER CONTROL CONTAINER --- */
         .leaflet-control-layers { 
-            z-index: 1001 !important; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-            border-radius: 8px !important; 
             padding: 0 !important; 
-            background: #fff;
             width: fit-content;
-            border: none !important;
         }
 
         .leaflet-control-layers-list {
             padding: 12px;
             overflow-y: auto;
-            max-height: 80vh;
+            max-height: 60vh; 
         }
 
         .layer-list-hidden {
@@ -232,41 +126,38 @@
         }
 
         .leaflet-control-layers-tree { font-size: 13px; min-width: 250px; color: #374151; }
+        
+        /* --- SLIDER & TOGGLE STYLES --- */
+        .slider-wrapper { position: relative; width: 100%; padding-top: 5px; height: 24px; display: flex; align-items: center; }
+        .custom-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px; outline: none; margin: 0; cursor: pointer; position: relative; z-index: 3; }
+        .custom-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #ffffff; cursor: pointer; margin-top: -6px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); border: 1px solid #d1d5db; transition: transform 0.1s ease, border-color 0.1s ease; }
+        .custom-slider::-webkit-slider-thumb:hover { border-color: #16a34a; transform: scale(1.1); }
+        .custom-slider::-moz-range-thumb { height: 18px; width: 18px; border-radius: 50%; background: #ffffff; cursor: pointer; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); border: 1px solid #d1d5db; }
+        .custom-slider::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: transparent; border-radius: 3px; }
+        .custom-slider::-moz-range-track { width: 100%; height: 6px; cursor: pointer; background: transparent; border-radius: 3px; }
+        .slider-dots { position: absolute; left: 2px; right: 2px; top: 50%; transform: translateY(-50%); width: auto; display: flex; justify-content: space-between; pointer-events: none; z-index: 2; }
+        .dot { width: 4px; height: 4px; background-color: #9ca3af; border-radius: 50%; }
+        .slider-disabled { opacity: 0.5; pointer-events: none; filter: grayscale(100%); transition: opacity 0.3s ease; }
+        .leaflet-control-layers-selector { appearance: none; -webkit-appearance: none; height: 20px; width: 36px; background-color: #e5e7eb; border-radius: 20px; position: relative; cursor: pointer; vertical-align: middle; margin-right: 10px; outline: none; transition: background-color 0.2s ease; top: -1px; border: none; }
+        .leaflet-control-layers-selector::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background-color: white; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,0.2); transition: transform 0.2s ease; }
+        .leaflet-control-layers-selector:checked { background-color: #16a34a; }
+        input[type="radio"].leaflet-control-layers-selector:checked { background-color: #2563eb; }
+        .leaflet-control-layers-selector:has(+ span .zambia-label):checked { background-color: #000000; }
+        .leaflet-control-layers-selector:has(+ span .aoi-label):checked { background-color: #dc2626; }
+        .leaflet-control-layers-selector:checked::after { transform: translateX(16px); }
         .slider-row { padding-left: 0px; padding-right: 0px; margin-bottom: 8px; margin-top: 4px; }
-        .slider-label-text { font-size: 12px; color: #4b5563; display: flex; justify-content: space-between; margin-bottom: 2px; font-weight: 500;}
-        .active-value { 
-            font-weight: 600; 
-            color: #15803d; 
-            background-color: #dcfce7;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            margin-left: 6px;
-        }
-        
-        /* Adjust spacing for labels in tree */
-        .leaflet-control-layers-overlays > label,
-        .leaflet-control-layers-base > label {
-            display: flex;
-            align-items: center;
-            padding: 6px 0;
-        }
-        
-        /* Indent slider content slightly to align with text */
-        #status-controls-wrapper, #flows-slider-wrapper {
-            padding-left: 4px;
-        }
+        .slider-label-text { font-size: 12px; color: #4b5563; display: flex; justify-content: space-between; margin-bottom: 0px; font-weight: 500; }
+        .active-value { font-weight: 600; color: #15803d; background-color: #dcfce7; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 6px; }
+        .leaflet-control-layers-overlays > label, .leaflet-control-layers-base > label { display: flex; align-items: center; padding: 6px 0; }
+        #status-controls-wrapper { padding-left: 4px; margin-bottom: 16px; }
+        #flows-slider-wrapper { padding-left: 4px; }
 
         </style>
         <title></title>
     </head>
     <body>
         <div id="map">
-            <div class="legend-container">
-                <div class="legend-header">LC Legend <i class="fa fa-caret-up"></i></div>
-                <img src="legend.png" alt="Map Legend" class="legend-image hidden">
             </div>
-        </div>
 
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
@@ -312,7 +203,12 @@
                 popup._contentNode.classList.remove('media');
             }
         }
+        
+        /* --- CONTROLS: ORDER MATTERS --- */
+        
+        // 1. Zoom Control
         var zoomControl = L.control.zoom({ position: 'bottomright' }).addTo(map);
+        
         var bounds_group = new L.featureGroup([]);
         
         /* --- BASEMAPS --- */
@@ -331,27 +227,34 @@
         
         /* --- LULC LAYERS --- */
         map.createPane('pane_LULCstatus2000');
+        map.getPane('pane_LULCstatus2000').style.zIndex = 402;
         var layer_LULCstatus2000 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2000_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2000', opacity: 1.0 });
 
         map.createPane('pane_LULCstatus2005');
+        map.getPane('pane_LULCstatus2005').style.zIndex = 403;
         var layer_LULCstatus2005 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2005_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2005', opacity: 1.0 });
 
         map.createPane('pane_LULCstatus2010');
+        map.getPane('pane_LULCstatus2010').style.zIndex = 404;
         var layer_LULCstatus2010 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2010_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2010', opacity: 1.0 });
 
         map.createPane('pane_LULCstatus2015');
+        map.getPane('pane_LULCstatus2015').style.zIndex = 405;
         var layer_LULCstatus2015 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2015_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2015', opacity: 1.0 });
 
         map.createPane('pane_LULCstatus2020_2');
+        map.getPane('pane_LULCstatus2020_2').style.zIndex = 406;
         var layer_LULCstatus2020_2 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2020_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2020_2', opacity: 1.0 });
         
         map.createPane('pane_LULCstatus2024_3');
+        map.getPane('pane_LULCstatus2024_3').style.zIndex = 407;
         var layer_LULCstatus2024_3 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2024_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2024_3', opacity: 1.0 });
         
         map.createPane('pane_LCflows20202024_4');
+        map.getPane('pane_LCflows20202024_4').style.zIndex = 408;
         var layer_LCflows20202024_4 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/YXZ_LULC_CHANGE_2020_2024_v2/{z}/{x}/{y}.png', { pane: 'pane_LCflows20202024_4', opacity: 1.0 });
         
-        /* --- AOI: GREEN NEXUS (SHOW = TRUE) --- */
+        /* --- AOI & BORDER --- */
         function style_AOIGreenNexus_5_0() {
             return { pane: 'pane_AOIGreenNexus_5', opacity: 1, color: 'rgba(168,0,0,1.0)', weight: 1.0, fill: true, fillColor: 'rgba(183,72,75,0.0)', interactive: false };
         }
@@ -360,10 +263,9 @@
         var layer_AOIGreenNexus_5 = new L.geoJson(json_AOIGreenNexus_5, { pane: 'pane_AOIGreenNexus_5', style: style_AOIGreenNexus_5_0 });
         map.addLayer(layer_AOIGreenNexus_5); 
         
-        /* --- ZAMBIA BORDER (SHOW = TRUE) --- */
         function style_Zambia() {
             return {
-                pane: 'pane_AOIGreenNexus_5', // Re-use AOI pane
+                pane: 'pane_AOIGreenNexus_5',
                 opacity: 1,
                 color: '#000000',
                 weight: 1.0,
@@ -385,12 +287,12 @@
         var group_LCStatus = L.layerGroup([layer_LULCstatus2024_3]);
         map.addLayer(group_LCStatus);
 
-        /* --- CONTROLS --- */
+        /* --- CONTROLS CONTENT HTML --- */
         var statusControlsHTML = 
             'LC Status <span id="year-tree-display" class="active-value">2024</span>' +
             '<div id="status-controls-wrapper">' + 
                 '<div class="slider-row">' +
-                    '<div class="slider-label-text"><span>Select Year</span></div>' +
+                    '<div class="slider-label-text"><span>Year</span></div>' +
                     '<div class="slider-wrapper">' +
                         '<div class="slider-dots">' +
                             '<div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>' +
@@ -410,15 +312,47 @@
         var googleLabel = 'Google Earth<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="0.7" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0"></div>';
 
         var overlaysTree = [
-            {label: '<img src="legend/Zambia.png" /> Zambia border<div style="height: 5px;"></div>', layer: layer_Zambia},
-            {label: '<img src="legend/AOIGreenNexus_5.png" /> AOI: Green Nexus<br><br>', layer: layer_AOIGreenNexus_5},
             {label: flowsLabel, layer: layer_LCflows20202024_4},
             {label: statusControlsHTML, layer: group_LCStatus},
             {label: osmLabel, layer: layer_OpenStreetMap_1, radioGroup: 'bm' },
             {label: googleLabel, layer: layer_GoogleEarth_0, radioGroup: 'bm' },
+            {label: '<span class="zambia-label">Zambia border</span>', layer: layer_Zambia},
+            {label: '<span class="aoi-label">AOI: Green Nexus</span>', layer: layer_AOIGreenNexus_5},
         ];
         
+        // 2. Layer Control
         L.control.layers.tree(null, overlaysTree,{ collapsed: false, position: 'bottomright'}).addTo(map);
+
+        // 3. Legend Control
+        var legendControl = L.control({ position: 'bottomright' });
+
+        legendControl.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'legend-control');
+            div.innerHTML = `
+                <div class="legend-header">LC Legend <i class="fa fa-caret-up"></i></div>
+                <img src="legend.png" alt="Map Legend" class="legend-image hidden">
+            `;
+            
+            var header = div.querySelector('.legend-header');
+            var image = div.querySelector('.legend-image');
+            var icon = div.querySelector('i');
+            
+            L.DomEvent.disableClickPropagation(div);
+            
+            header.addEventListener('click', function() {
+                image.classList.toggle('hidden');
+                header.classList.toggle('header-collapsed');
+                if (image.classList.contains('hidden')) {
+                    icon.className = 'fa fa-caret-up'; 
+                } else {
+                    icon.className = 'fa fa-caret-down'; 
+                }
+            });
+            
+            return div;
+        };
+
+        legendControl.addTo(map);
 
         const timeSeriesLayers = [
             { year: 2000, layer: layer_LULCstatus2000 },
@@ -435,20 +369,17 @@
         function updateSliderBackground(slider) {
             if (!slider) return;
             
-            // Skip shading for Year Slider to keep dots clear
             if (slider.id === 'year-tree-slider') {
                 slider.style.background = '#e5e7eb';
                 return;
             }
 
-            // Check if disabled (grey out)
             var parentWrapper = slider.closest('#status-controls-wrapper') || slider.closest('#flows-slider-wrapper');
             if (parentWrapper && parentWrapper.classList.contains('slider-disabled')) {
                 slider.style.background = '#e5e7eb';
                 return;
             }
             
-            // Check for generic layers (Basemaps)
             const layerName = slider.getAttribute('data-layer');
             if (layerName && window[layerName] && !map.hasLayer(window[layerName])) {
                  slider.style.background = '#e5e7eb';
@@ -460,10 +391,9 @@
             const val = parseFloat(slider.value);
             const percentage = ((val - min) / (max - min)) * 100;
 
-            // Green for Data layers, Blue for Basemaps
-            let color = '22, 163, 74'; // Green 600
+            let color = '22, 163, 74'; // Green
             if (layerName && (layerName.includes('OpenStreetMap') || layerName.includes('GoogleEarth'))) {
-                color = '37, 99, 235'; // Blue 600
+                color = '37, 99, 235'; // Blue
             }
 
             slider.style.background = `linear-gradient(to right, rgba(${color}, 0.2) 0%, rgba(${color}, 1) ${percentage}%, #e5e7eb ${percentage}%)`;
@@ -503,7 +433,6 @@
         document.addEventListener('click', function(e) { if (e.target.classList.contains('custom-slider')) e.stopPropagation(); });
 
         map.on('overlayadd', function(e) {
-            // Update sliders shading when layers are toggled
             setTimeout(initSliderShading, 20);
 
             if (e.layer === layer_LCflows20202024_4) {
@@ -528,18 +457,9 @@
             setTimeout(initSliderShading, 20);
         });
         
-        // Initialize shading on load
         setTimeout(initSliderShading, 500);
-        
-        const legendHeader = document.querySelector('.legend-header');
-        const legendImage = document.querySelector('.legend-image');
-        const legendIcon = legendHeader.querySelector('i');
-        legendHeader.addEventListener('click', function() {
-            legendImage.classList.toggle('hidden');
-            legendIcon.className = legendImage.classList.contains('hidden') ? 'fa fa-caret-up' : 'fa fa-caret-down';
-        });
 
-        /* --- INJECT HEADER & COLLAPSE LOGIC --- */
+        /* --- INJECT LAYER HEADER & COLLAPSE LOGIC --- */
         setTimeout(function() {
             var controlContainer = document.querySelector('.leaflet-control-layers');
             var controlList = document.querySelector('.leaflet-control-layers-list');
@@ -547,21 +467,25 @@
             if (controlContainer && controlList) {
                 var headerDiv = document.createElement('div');
                 headerDiv.className = 'layer-control-header';
-                headerDiv.innerHTML = 'Layers&nbsp;&nbsp;<i class="fa fa-caret-down"></i>';
+                
+                // Initial State: Collapsed (arrow UP)
+                headerDiv.innerHTML = 'Layers&nbsp;&nbsp;<i class="fa fa-caret-up"></i>';
                 
                 controlList.parentNode.insertBefore(headerDiv, controlList);
                 
                 headerDiv.addEventListener('click', function() {
                     var icon = headerDiv.querySelector('i');
                     if (controlList.classList.contains('layer-list-hidden')) {
+                        // Action: EXPAND
                         controlList.classList.remove('layer-list-hidden');
                         headerDiv.classList.remove('header-collapsed');
-                        icon.className = 'fa fa-caret-down';
+                        icon.className = 'fa fa-caret-down'; 
                         controlContainer.style.width = 'fit-content'; 
                     } else {
+                        // Action: COLLAPSE
                         controlList.classList.add('layer-list-hidden');
                         headerDiv.classList.add('header-collapsed');
-                        icon.className = 'fa fa-caret-right';
+                        icon.className = 'fa fa-caret-up'; 
                         controlContainer.style.width = 'fit-content';
                     }
                 });
