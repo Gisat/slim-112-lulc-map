@@ -16,6 +16,7 @@
             height: 100%;
             padding: 0;
             margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         /* --- LEGEND STYLES --- */
@@ -25,36 +26,35 @@
             right: 55px; 
             z-index: 2000 !important;
             background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-            font-family: Arial, sans-serif;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             width: auto;
-            min-width: 120px;
+            min-width: 140px;
             max-width: 250px;
+            overflow: hidden;
         }
 
-        /* Shared Header Styles */
-        .legend-header, .layer-control-header {
-            padding: 10px;
+        .legend-header {
+            padding: 12px 16px;
             cursor: pointer;
-            border-bottom: 1px solid #eee;
-            background-color: #fff;
-            border-radius: 5px 5px 0 0;
-            font-size: 0.88em;
-            font-weight: bold;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #111827;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: #f9fafb;
         }
-
-        .header-collapsed {
-            border-radius: 5px !important;
-            border-bottom: none !important;
+        
+        .legend-header:hover {
+            background: #f3f4f6;
         }
 
         .legend-image {
-            padding: 10px;
+            padding: 12px;
             display: block;
+            background: white;
         }
 
         .legend-image.hidden {
@@ -62,118 +62,249 @@
             padding: 0;
         }
     
-        /* --- SLIDER CONTAINER STYLES --- */
-        .slider-wrapper {
-            position: relative;
-            width: 100%;
-            height: 14px; 
+        /* --- MODERN SLIDER STYLES --- */
+        .slider-row {
+            padding: 4px 0 2px 4px;
+            margin-bottom: 0px;
+        }
+        
+        .control-group-container {
+            margin-bottom: 16px;
+        }
+        
+        .slider-label-text {
+            font-size: 12px;
+            color: #4b5563;
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 4px;
+            font-weight: 500;
         }
 
+        .active-value {
+            font-weight: 600;
+            color: #15803d;
+            background-color: #dcfce7;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+
+        /* The Range Input */
         .custom-slider {
             -webkit-appearance: none;
             appearance: none;
             width: 100%; 
-            height: 2px; 
-            background: transparent;
+            height: 6px;
+            background: #e5e7eb; 
+            border-radius: 3px;
             outline: none;
+            margin: 0;
             cursor: pointer;
             position: relative;
-            z-index: 3; 
-            margin: 0;
-        }
-
-        /* Track Styles */
-        .custom-slider::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 2px;
-            background: #a9d7ff;
-        }
-        .custom-slider::-moz-range-track {
-            width: 100%;
-            height: 2px;
-            background: #a9d7ff;
+            z-index: 2;
         }
 
         /* Thumb Styles */
         .custom-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 10px;
-            width: 10px;
+            height: 18px;
+            width: 18px;
             border-radius: 50%;
-            background: #007bff;
-            margin-top: -4px;
-            border: 1px solid #fff;
-            box-shadow: 0 0 2px rgba(0,0,0,0.3);
-        }
-        .custom-slider::-moz-range-thumb {
-            height: 10px;
-            width: 10px;
-            border-radius: 50%;
-            background: #007bff;
-            border: 1px solid #fff;
-            box-shadow: 0 0 2px rgba(0,0,0,0.3);
+            background: #ffffff;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border: 1px solid #d1d5db;
+            transition: transform 0.1s ease, border-color 0.1s ease;
         }
         
-        /* --- DOTS --- */
-        .slider-dots {
-            position: absolute;
-            left: 0;  
-            right: 0; 
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            pointer-events: none;
-            z-index: 2;
+        .custom-slider::-webkit-slider-thumb:hover {
+            border-color: #16a34a;
+            transform: scale(1.1);
         }
 
-        .dot {
-            width: 5px;
-            height: 5px;
-            background-color: #a9d7ff;
+        .custom-slider::-moz-range-thumb {
+            height: 18px;
+            width: 18px;
             border-radius: 50%;
-            transform: translateY(0px); 
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid #d1d5db;
         }
 
+        /* Track Styles */
+        .custom-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: transparent; 
+            border-radius: 3px;
+        }
+        
+        .custom-slider::-moz-range-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: transparent;
+            border-radius: 3px;
+        }
+
+        /* Disabled state */
         .slider-disabled {
-            opacity: 0.4;
+            opacity: 0.5;
             pointer-events: none;
-            filter: grayscale(100%);
             transition: opacity 0.3s ease;
         }
 
-        /* --- LAYER CONTROL STYLES --- */
-        .leaflet-control-layers { 
-            z-index: 1001 !important; 
-            box-shadow: 0 1px 5px rgba(0,0,0,0.4) !important; 
-            border-radius: 5px !important; 
-            padding: 0 !important; 
-            background: #fff;
-            width: fit-content;
+        /* --- MODERN TOGGLE SWITCHES FOR LAYER CONTROL --- */
+        .leaflet-control-layers-selector {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 20px;
+            width: 36px;
+            background-color: #e5e7eb;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-right: 8px;
+            outline: none;
+            transition: background-color 0.2s ease;
+            top: -1px;
         }
 
+        .leaflet-control-layers-selector::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .leaflet-control-layers-selector:checked {
+            background-color: #16a34a; /* Green 600 - Default */
+        }
+        
+        /* Red for AOI Toggle using :has() selector */
+        .leaflet-control-layers-selector:has(+ span .aoi-label):checked {
+            background-color: #dc2626; /* Red 600 */
+        }
+        
+        /* Black for Zambia Border Toggle */
+        .leaflet-control-layers-selector:has(+ span .border-label):checked {
+            background-color: #000000; /* Black */
+        }
+
+        .leaflet-control-layers-selector:checked::after {
+            transform: translateX(16px);
+        }
+        
+        input[type="radio"].leaflet-control-layers-selector:checked {
+            background-color: #2563eb; /* Blue 600 */
+        }
+
+        /* --- LAYER CONTROL CONTAINER & COLLAPSIBLE HEADER --- */
+        .leaflet-control-layers {
+            z-index: 1001 !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+            border-radius: 8px !important;
+            border: none !important;
+            padding: 0 !important; /* Remove padding from main container, handled by children */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden; /* For header rounded corners */
+        }
+        
+        /* Collapsible Header Style */
+        .layer-control-header {
+            padding: 12px 16px;
+            background: #f9fafb;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #111827;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-width: 260px;
+        }
+        
+        .layer-control-header:hover {
+            background: #f3f4f6;
+        }
+        
+        .header-collapsed {
+            border-bottom: none;
+        }
+        
         .leaflet-control-layers-list {
-            padding: 4px;
+            padding: 12px 16px; /* Restore padding here */
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease;
+            max-height: 800px; /* Arbitrary large height for animation */
+            opacity: 1;
             overflow-y: auto;
-            max-height: 80vh;
+            max-height: calc(100vh - 150px); /* Prevent overflowing screen */
         }
-
+        
         .layer-list-hidden {
-            display: none !important;
+            display: none; /* Simple hide, animation is tricky with fit-content width */
         }
 
-        .leaflet-control-layers-tree { font-size: 12px; min-width: 230px; }
-        .slider-row { padding-left: 20px; padding-right: 5px; margin-bottom: 5px; }
-        .slider-label-text { font-size: 11px; color: #555; display: flex; justify-content: space-between; }
-        .active-value { font-weight: bold; color: #007bff; }
+        .leaflet-control-layers-tree {
+            font-size: 13px;
+            color: #374151;
+        }
+        
+        .leaflet-control-layers-overlays > label,
+        .leaflet-control-layers-base > label {
+            display: flex;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        /* --- DOTS FOR YEAR SLIDER --- */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 5px;
+        }
+        
+        .slider-dots {
+            position: absolute;
+            top: 13px;
+            left: 2px;
+            right: 2px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            background-color: #9ca3af;
+            border-radius: 50%;
+        }
+
         </style>
         <title></title>
     </head>
     <body>
         <div id="map">
             <div class="legend-container">
-                <div class="legend-header">LC legend <i class="fa fa-caret-up"></i></div>
+                <div class="legend-header">
+                    <span>LC Legend</span>
+                    <i class="fa fa-caret-up"></i>
+                </div>
                 <img src="legend.png" alt="Map Legend" class="legend-image hidden">
             </div>
         </div>
@@ -195,7 +326,7 @@
             zoomControl:false, maxZoom:14, minZoom:3
         }).fitBounds([[-19.0,23.0],[-9.0,33.0]]);
         var hash = new L.Hash(map);
-        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com">Leaflet</a>');
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         
         function removeEmptyRowsFromPopupContent(content, feature) {
@@ -212,185 +343,457 @@
          return tempDiv.innerHTML;
         }
         
-		function addClassToPopupIfMedia(content, popup) {
-			var tempDiv = document.createElement('div');
-			tempDiv.innerHTML = content;
-			if (tempDiv.querySelector('td img')) {
-				popup._contentNode.classList.add('media');
-					setTimeout(function() { popup.update(); }, 10);
-			} else {
-				popup._contentNode.classList.remove('media');
-			}
-		}
-        var zoomControl = L.control.zoom({ position: 'bottomright' }).addTo(map);
+        function addClassToPopupIfMedia(content, popup) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            if (tempDiv.querySelector('td img')) {
+                popup._contentNode.classList.add('media');
+                    setTimeout(function() {
+                        popup.update();
+                    }, 10);
+            } else {
+                popup._contentNode.classList.remove('media');
+            }
+        }
+        var zoomControl = L.control.zoom({
+            position: 'bottomright'
+        }).addTo(map);
         var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
         
         /* --- BASEMAPS --- */
         map.createPane('pane_GoogleEarth_0');
         map.getPane('pane_GoogleEarth_0').style.zIndex = 400;
         var layer_GoogleEarth_0 = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
-            pane: 'pane_GoogleEarth_0', opacity: 0.95, minZoom: 3, maxZoom: 14,
+            pane: 'pane_GoogleEarth_0',
+            opacity: 0.95,
+            attribution: '',
+            minZoom: 3,
+            maxZoom: 14,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
         });
         map.addLayer(layer_GoogleEarth_0);
 
         map.createPane('pane_OpenStreetMap_1');
         map.getPane('pane_OpenStreetMap_1').style.zIndex = 401;
         var layer_OpenStreetMap_1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            pane: 'pane_OpenStreetMap_1', opacity: 0.7, minZoom: 3, maxZoom: 14,
+            pane: 'pane_OpenStreetMap_1',
+            opacity: 0.7,
+            attribution: '',
+            minZoom: 3,
+            maxZoom: 14,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
         });
         
         /* --- LULC LAYERS --- */
         map.createPane('pane_LULCstatus2000');
-        var layer_LULCstatus2000 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2000_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2000', opacity: 1.0 });
+        map.getPane('pane_LULCstatus2000').style.zIndex = 402;
+        var layer_LULCstatus2000 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2000_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2000', opacity: 1.0, minZoom: 3, maxZoom: 14, minNativeZoom: 5, maxNativeZoom: 15 });
 
         map.createPane('pane_LULCstatus2005');
-        var layer_LULCstatus2005 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2005_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2005', opacity: 1.0 });
+        map.getPane('pane_LULCstatus2005').style.zIndex = 403;
+        var layer_LULCstatus2005 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2005_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2005', opacity: 1.0, minZoom: 3, maxZoom: 14, minNativeZoom: 5, maxNativeZoom: 15 });
 
         map.createPane('pane_LULCstatus2010');
-        var layer_LULCstatus2010 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2010_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2010', opacity: 1.0 });
+        map.getPane('pane_LULCstatus2010').style.zIndex = 404;
+        var layer_LULCstatus2010 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2010_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2010', opacity: 1.0, minZoom: 3, maxZoom: 14, minNativeZoom: 5, maxNativeZoom: 15 });
 
         map.createPane('pane_LULCstatus2015');
-        var layer_LULCstatus2015 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2015_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2015', opacity: 1.0 });
+        map.getPane('pane_LULCstatus2015').style.zIndex = 405;
+        var layer_LULCstatus2015 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2015_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2015', opacity: 1.0, minZoom: 3, maxZoom: 14, minNativeZoom: 5, maxNativeZoom: 15 });
 
         map.createPane('pane_LULCstatus2020_2');
-        var layer_LULCstatus2020_2 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2020_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2020_2', opacity: 1.0 });
+        map.getPane('pane_LULCstatus2020_2').style.zIndex = 406;
+        var layer_LULCstatus2020_2 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2020_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2020_2', opacity: 1.0, minZoom: 3, maxZoom: 14, minNativeZoom: 5, maxNativeZoom: 15 });
         
         map.createPane('pane_LULCstatus2024_3');
-        var layer_LULCstatus2024_3 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2024_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2024_3', opacity: 1.0 });
+        map.getPane('pane_LULCstatus2024_3').style.zIndex = 407;
+        var layer_LULCstatus2024_3 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2024_v3/{z}/{x}/{y}.png', { pane: 'pane_LULCstatus2024_3', opacity: 1.0, minZoom: 3, maxZoom: 14, minNativeZoom: 3, maxNativeZoom: 15 });
         
+        /* --- LC FLOWS --- */
         map.createPane('pane_LCflows20202024_4');
-        var layer_LCflows20202024_4 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/YXZ_LULC_CHANGE_2020_2024_v2/{z}/{x}/{y}.png', { pane: 'pane_LCflows20202024_4', opacity: 1.0 });
+        map.getPane('pane_LCflows20202024_4').style.zIndex = 408;
+        var layer_LCflows20202024_4 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/YXZ_LULC_CHANGE_2020_2024_v2/{z}/{x}/{y}.png', {
+            pane: 'pane_LCflows20202024_4',
+            opacity: 1.0,
+            minZoom: 3,
+            maxZoom: 14,
+            minNativeZoom: 3,
+            maxNativeZoom: 15
+        });
         
-        /* --- AOI: GREEN NEXUS (SHOW = TRUE) --- */
-        function style_AOIGreenNexus_5_0() {
-            return { pane: 'pane_AOIGreenNexus_5', opacity: 1, color: 'rgba(168,0,0,1.0)', weight: 1.0, fill: true, fillColor: 'rgba(183,72,75,0.0)', interactive: false };
+        /* --- AOI --- */
+        function pop_AOIGreenNexus_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">NAME</th>\
+                        <td class="visible-with-data" id="NAME">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PROVINCE</th>\
+                        <td class="visible-with-data" id="PROVINCE">' + (feature.properties['PROVINCE'] !== null ? autolinker.link(String(feature.properties['PROVINCE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PROVINCE_2</th>\
+                        <td class="visible-with-data" id="PROVINCE_2">' + (feature.properties['PROVINCE_2'] !== null ? autolinker.link(String(feature.properties['PROVINCE_2']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function(e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
         }
-        map.createPane('pane_AOIGreenNexus_5');
-        map.getPane('pane_AOIGreenNexus_5').style.zIndex = 409;
-        var layer_AOIGreenNexus_5 = new L.geoJson(json_AOIGreenNexus_5, { pane: 'pane_AOIGreenNexus_5', style: style_AOIGreenNexus_5_0 });
-        map.addLayer(layer_AOIGreenNexus_5); 
-        
-        /* --- ZAMBIA BORDER (SHOW = TRUE) --- */
-        function style_Zambia() {
+
+        function style_AOIGreenNexus_5_0() {
             return {
-                pane: 'pane_AOIGreenNexus_5', // Re-use AOI pane
+                pane: 'pane_AOIGreenNexus_5',
                 opacity: 1,
-                color: '#000000',
-                weight: 1.0,
+                color: 'rgba(168,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
                 fill: true,
-                fillOpacity: 0,
+                fillOpacity: 1,
+                fillColor: 'rgba(183,72,75,0.0)',
                 interactive: false,
             }
         }
-        
-        var layer_Zambia = new L.geoJson(json_Zambia, {
+        map.createPane('pane_AOIGreenNexus_5');
+        map.getPane('pane_AOIGreenNexus_5').style.zIndex = 409;
+        map.getPane('pane_AOIGreenNexus_5').style['mix-blend-mode'] = 'normal';
+        var layer_AOIGreenNexus_5 = new L.geoJson(json_AOIGreenNexus_5, {
             attribution: '',
             interactive: false,
+            dataVar: 'json_AOIGreenNexus_5',
+            layerName: 'layer_AOIGreenNexus_5',
             pane: 'pane_AOIGreenNexus_5',
-            style: style_Zambia
+            onEachFeature: pop_AOIGreenNexus_5,
+            style: style_AOIGreenNexus_5_0,
         });
-        bounds_group.addLayer(layer_Zambia);
-        map.addLayer(layer_Zambia); 
-
+        bounds_group.addLayer(layer_AOIGreenNexus_5);
+        map.addLayer(layer_AOIGreenNexus_5);
+        
+        /* --- ZAMBIA BORDER --- */
+        function style_Zambia_6_0() {
+            return {
+                pane: 'pane_Zambia_6',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,0.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Zambia_6');
+        map.getPane('pane_Zambia_6').style.zIndex = 410;
+        map.getPane('pane_Zambia_6').style['mix-blend-mode'] = 'normal';
+        var layer_Zambia_6 = new L.geoJson(json_Zambia, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Zambia',
+            layerName: 'layer_Zambia_6',
+            pane: 'pane_Zambia_6',
+            style: style_Zambia_6_0,
+        });
+        bounds_group.addLayer(layer_Zambia_6);
+        map.addLayer(layer_Zambia_6);
+        
+        /* --- DYNAMIC GROUP FOR TIME SERIES --- */
         var group_LCStatus = L.layerGroup([layer_LULCstatus2024_3]);
         map.addLayer(group_LCStatus);
 
-        /* --- CONTROLS --- */
+        /* --- HTML FOR CUSTOM CONTROLS IN LAYER TREE --- */
+        
+        // 1. LC Status Controls - Wrapped in a container with bottom margin
         var statusControlsHTML = 
             'LC Status <span id="year-tree-display" class="active-value">2024</span>' +
-            '<div id="status-controls-wrapper">' + 
+            '<div id="status-controls-wrapper" class="control-group-container">' + 
                 '<div class="slider-row">' +
-                    '<div class="slider-label-text"><span style="font-weight: bold;">Year</span></div>' +
+                    '<div class="slider-label-text"><span>Select Year</span></div>' +
                     '<div class="slider-wrapper">' +
                         '<div class="slider-dots">' +
                             '<div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>' +
                         '</div>' +
-                        '<input type="range" min="0" max="5" value="5" class="custom-slider" id="year-tree-slider">' +
+                        '<input type="range" min="0" max="5" value="5" class="custom-slider" id="year-tree-slider" title="Drag to change year">' +
                     '</div>' +
                 '</div>' +
                 '<div class="slider-row">' +
-                    '<div class="slider-label-text"><span>Transparency</span><span id="opacity-tree-display">100%</span></div>' +
+                    '<div class="slider-label-text"><span>Transparency</span><span id="opacity-tree-display" style="font-size:11px; color:#6b7280;">100%</span></div>' +
                     '<input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider" id="opacity-tree-slider">' +
                 '</div>' +
             '</div>';
 
-        var flowsLabel = 'LC Flows 2020-2024<div id="flows-slider-wrapper" class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_LCflows20202024_4"></div>';
-        var osmLabel = 'Open Street Map<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1"></div>';
-        var googleLabel = 'Google Earth<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="0.7" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0"></div>';
+        /* --- LAYER TREE CONFIG --- */
+        
+        // Added class="control-group-container" to add space below this group
+        var flowsLabel = 'LC Flows <span style="font-size:11px; color:#6b7280; font-weight:400;">(2020-2024)</span><div id="flows-slider-wrapper" class="slider-row control-group-container"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_LCflows20202024_4"></div>';
+        
+        var osmLabel = 'Open Street Map<div class="slider-row control-group-container"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1"></div>';
+        
+        var googleLabel = 'Google Earth<div class="slider-row control-group-container"><input type="range" min="0" max="1" step="0.1" value="0.7" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0"></div>';
 
+        // Redesigned Tree Structure with Collapsible logic support
         var overlaysTree = [
-            {label: '<img src="legend/Zambia.png" /> Zambia border<div style="height: 5px;"></div>', layer: layer_Zambia},
-            {label: '<img src="legend/AOIGreenNexus_5.png" /> AOI: Green Nexus<br><br>', layer: layer_AOIGreenNexus_5},
             {label: flowsLabel, layer: layer_LCflows20202024_4},
             {label: statusControlsHTML, layer: group_LCStatus},
             {label: osmLabel, layer: layer_OpenStreetMap_1, radioGroup: 'bm' },
             {label: googleLabel, layer: layer_GoogleEarth_0, radioGroup: 'bm' },
+            {label: '<span class="aoi-label">AOI: Green Nexus</span>', layer: layer_AOIGreenNexus_5},
+            {label: '<span class="border-label">Zambia Border</span>', layer: layer_Zambia_6},
         ];
         
-        L.control.layers.tree(null, overlaysTree,{ collapsed: false, position: 'bottomright'}).addTo(map);
-
-        const timeSeriesLayers = [
-            { year: 2000, layer: layer_LULCstatus2000 },
-            { year: 2005, layer: layer_LULCstatus2005 },
-            { year: 2010, layer: layer_LULCstatus2010 },
-            { year: 2015, layer: layer_LULCstatus2015 },
-            { year: 2020, layer: layer_LULCstatus2020_2 },
-            { year: 2024, layer: layer_LULCstatus2024_3 }
-        ];
-
-        let currentIndex = 5;
-
-        document.addEventListener('input', function(e) {
-            if (e.target.id === 'year-tree-slider') {
-                var index = parseInt(e.target.value);
-                document.getElementById('year-tree-display').innerText = timeSeriesLayers[index].year;
-                group_LCStatus.clearLayers();
-                var activeItem = timeSeriesLayers[index];
-                activeItem.layer.setOpacity(document.getElementById('opacity-tree-slider').value);
-                group_LCStatus.addLayer(activeItem.layer);
-                currentIndex = index;
-                if (map.hasLayer(layer_LCflows20202024_4)) map.removeLayer(layer_LCflows20202024_4);
-                if (!map.hasLayer(group_LCStatus)) map.addLayer(group_LCStatus);
-            }
-            if (e.target.id === 'opacity-tree-slider') {
-                var val = e.target.value;
-                document.getElementById('opacity-tree-display').innerText = Math.round(val * 100) + '%';
-                timeSeriesLayers[currentIndex].layer.setOpacity(val);
-            }
-            if (e.target.classList.contains('opacity-slider')) {
-                window[e.target.getAttribute('data-layer')].setOpacity(e.target.value);
-            }
+        var lay = L.control.layers.tree(null, overlaysTree,{
+            collapsed: false,
+            position: 'bottomright',
         });
-
-        document.addEventListener('mousedown', function(e) { if (e.target.classList.contains('custom-slider')) e.stopPropagation(); });
-        document.addEventListener('click', function(e) { if (e.target.classList.contains('custom-slider')) e.stopPropagation(); });
-
-        map.on('overlayadd', function(e) {
-            if (e.layer === layer_LCflows20202024_4) {
-                setTimeout(() => { 
-                    if (map.hasLayer(group_LCStatus)) map.removeLayer(group_LCStatus);
-                    document.getElementById('status-controls-wrapper').classList.add('slider-disabled');
-                    document.getElementById('flows-slider-wrapper').classList.remove('slider-disabled');
-                }, 10);
-            }
-            if (e.layer === group_LCStatus) {
-                setTimeout(() => { 
-                    if (map.hasLayer(layer_LCflows20202024_4)) map.removeLayer(layer_LCflows20202024_4);
-                    document.getElementById('status-controls-wrapper').classList.remove('slider-disabled');
-                    document.getElementById('flows-slider-wrapper').classList.add('slider-disabled');
-                }, 10);
-            }
-        });
+        lay.addTo(map);
+        setBounds();
+        </script>
         
-        const legendHeader = document.querySelector('.legend-header');
-        const legendImage = document.querySelector('.legend-image');
-        const legendIcon = legendHeader.querySelector('i');
-        legendHeader.addEventListener('click', function() {
-            legendImage.classList.toggle('hidden');
-            legendIcon.className = legendImage.classList.contains('hidden') ? 'fa fa-caret-up' : 'fa fa-caret-down';
-        });
+        <script>
+            /* --- LOGIC --- */
+            const timeSeriesLayers = [
+                { year: 2000, layer: layer_LULCstatus2000 },
+                { year: 2005, layer: layer_LULCstatus2005 },
+                { year: 2010, layer: layer_LULCstatus2010 },
+                { year: 2015, layer: layer_LULCstatus2015 },
+                { year: 2020, layer: layer_LULCstatus2020_2 },
+                { year: 2024, layer: layer_LULCstatus2024_3 }
+            ];
 
-        /* --- INJECT HEADER & COLLAPSE LOGIC --- */
+            let currentIndex = 5; // Default 2024
+
+            /* --- HELPER FOR SLIDER SHADING --- */
+            function updateSliderBackground(slider) {
+                if (!slider) return;
+
+                // Explicitly skip shading for Year Slider
+                if (slider.id === 'year-tree-slider') {
+                    slider.style.background = '#e5e7eb'; // Default gray
+                    return;
+                }
+                
+                // --- 1. CHECK WRAPPER (For Status/Flows) ---
+                var parentWrapper = slider.closest('#status-controls-wrapper') || slider.closest('#flows-slider-wrapper');
+                
+                if (parentWrapper && parentWrapper.classList.contains('slider-disabled')) {
+                    slider.style.background = '#e5e7eb';
+                    return;
+                }
+
+                // --- 2. CHECK GENERIC LAYERS (For OSM/Google) ---
+                // If a generic layer is NOT on the map, force gray
+                const layerName = slider.getAttribute('data-layer');
+                if (layerName) {
+                    const layer = window[layerName];
+                    if (layer && !map.hasLayer(layer)) {
+                        slider.style.background = '#e5e7eb';
+                        return;
+                    }
+                }
+
+                const min = slider.min ? parseFloat(slider.min) : 0;
+                const max = slider.max ? parseFloat(slider.max) : 100;
+                const val = parseFloat(slider.value);
+                // Calculate percentage
+                const percentage = ((val - min) / (max - min)) * 100;
+
+                // Determine Color based on Layer Type
+                // Default is Green (LC Status, LC Flows)
+                let color = '22, 163, 74'; // rgb(22, 163, 74) = #16a34a
+
+                // Check for Blue layers (Basemaps: OSM, Google)
+                if (layerName && (layerName.includes('OpenStreetMap') || layerName.includes('GoogleEarth'))) {
+                    color = '37, 99, 235'; // rgb(37, 99, 235) = #2563eb
+                }
+
+                // Update linear gradient with fade effect
+                // Gradient goes from transparent-ish color to solid color up to the thumb
+                slider.style.background = `linear-gradient(to right, rgba(${color}, 0.2) 0%, rgba(${color}, 1) ${percentage}%, #e5e7eb ${percentage}%)`;
+            }
+
+            // Initialize all sliders with shading
+            function initSliderShading() {
+                const sliders = document.querySelectorAll('.custom-slider');
+                sliders.forEach(slider => {
+                    updateSliderBackground(slider);
+                });
+            }
+
+            /* --- EVENT DELEGATION --- */
+            document.addEventListener('input', function(e) {
+                if (!e.target) return;
+                
+                // Update shading if it's a slider
+                if (e.target.classList.contains('custom-slider')) {
+                    updateSliderBackground(e.target);
+                }
+
+                // Handle Year Slider
+                if (e.target.id === 'year-tree-slider') {
+                    var index = parseInt(e.target.value);
+                    var display = document.getElementById('year-tree-display');
+                    var opSlider = document.getElementById('opacity-tree-slider');
+                    
+                    if (display) display.innerText = timeSeriesLayers[index].year;
+                    
+                    group_LCStatus.clearLayers();
+                    var activeItem = timeSeriesLayers[index];
+                    if (opSlider) activeItem.layer.setOpacity(opSlider.value);
+                    group_LCStatus.addLayer(activeItem.layer);
+                    currentIndex = index;
+
+                    // Interaction -> FORCE Status ON, Flows OFF
+                    if (map.hasLayer(layer_LCflows20202024_4)) {
+                        map.removeLayer(layer_LCflows20202024_4);
+                    }
+                    if (!map.hasLayer(group_LCStatus)) {
+                        map.addLayer(group_LCStatus);
+                    }
+                }
+
+                // Handle Status Opacity
+                if (e.target.id === 'opacity-tree-slider') {
+                    var val = e.target.value;
+                    var opDisplay = document.getElementById('opacity-tree-display');
+                    if (opDisplay) opDisplay.innerText = Math.round(val * 100) + '%';
+                    
+                    var activeLayer = timeSeriesLayers[currentIndex].layer;
+                    if (activeLayer) activeLayer.setOpacity(val);
+                }
+
+                // Handle Generic Sliders
+                if (e.target.classList.contains('opacity-slider')) {
+                    var layerName = e.target.getAttribute('data-layer');
+                    var layer = window[layerName];
+                    if (layer && typeof layer.setOpacity === 'function') {
+                        layer.setOpacity(e.target.value);
+                    }
+                }
+            });
+
+            document.addEventListener('mousedown', function(e) {
+                if (e.target && e.target.classList.contains('custom-slider')) {
+                    e.stopPropagation();
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target && e.target.classList.contains('custom-slider')) {
+                    e.stopPropagation();
+                }
+            });
+
+            /* --- MUTUAL EXCLUSIVITY & GREYING OUT LOGIC --- */
+            map.on('overlayadd', function(e) {
+                // Fetch elements live
+                var statusWrapper = document.getElementById('status-controls-wrapper');
+                var flowsWrapper = document.getElementById('flows-slider-wrapper');
+
+                // Helper to refresh shading when enabled
+                function refreshShading() {
+                    initSliderShading();
+                }
+
+                // 1. If Flows added
+                if (e.layer === layer_LCflows20202024_4) {
+                    setTimeout(function() {
+                        if (map.hasLayer(group_LCStatus)) {
+                            map.removeLayer(group_LCStatus);
+                        }
+                        // Flows ON -> Status Wrapper DISABLED
+                        var sw = document.getElementById('status-controls-wrapper');
+                        var fw = document.getElementById('flows-slider-wrapper');
+                        if(sw) sw.classList.add('slider-disabled');
+                        if(fw) fw.classList.remove('slider-disabled');
+                        
+                        refreshShading(); // Update colors
+                    }, 10);
+                }
+                
+                // 2. If Status added
+                if (e.layer === group_LCStatus) {
+                    setTimeout(function() {
+                        if (map.hasLayer(layer_LCflows20202024_4)) {
+                            map.removeLayer(layer_LCflows20202024_4);
+                        }
+                        // Status ON -> Flows Wrapper DISABLED
+                        var sw = document.getElementById('status-controls-wrapper');
+                        var fw = document.getElementById('flows-slider-wrapper');
+                        if(sw) sw.classList.remove('slider-disabled');
+                        if(fw) fw.classList.add('slider-disabled');
+                        
+                        refreshShading(); // Update colors
+                    }, 10);
+                }
+                
+                // 3. For Basemaps/Generic Layers, simply refresh shading
+                setTimeout(refreshShading, 10);
+            });
+
+            map.on('overlayremove', function(e) {
+                // Fetch elements live
+                var statusWrapper = document.getElementById('status-controls-wrapper');
+                var flowsWrapper = document.getElementById('flows-slider-wrapper');
+
+                if (e.layer === group_LCStatus) {
+                    // Status OFF -> Disable Status Sliders
+                    if(statusWrapper) statusWrapper.classList.add('slider-disabled');
+                    setTimeout(initSliderShading, 10); // Refresh to remove color
+                }
+                if (e.layer === layer_LCflows20202024_4) {
+                    // Flows OFF -> Disable Flows Slider
+                    if(flowsWrapper) flowsWrapper.classList.add('slider-disabled');
+                    setTimeout(initSliderShading, 10); // Refresh to remove color
+                }
+                
+                // For generic layers, refresh shading to gray it out
+                setTimeout(initSliderShading, 10);
+            });
+            
+            // Initial Check on Load
+            setTimeout(function() {
+                 var statusWrapper = document.getElementById('status-controls-wrapper');
+                 var flowsWrapper = document.getElementById('flows-slider-wrapper');
+                 
+                 // If Status is OFF, disable its sliders
+                 if (!map.hasLayer(group_LCStatus) && statusWrapper) {
+                     statusWrapper.classList.add('slider-disabled');
+                 }
+                 // If Flows is OFF, disable its slider
+                 if (!map.hasLayer(layer_LCflows20202024_4) && flowsWrapper) {
+                     flowsWrapper.classList.add('slider-disabled');
+                 }
+                 
+                 // INITIALIZE SHADING
+                 initSliderShading();
+            }, 500);
+
+            /* --- LEGEND TOGGLE --- */
+            const legendHeader = document.querySelector('.legend-header');
+            const legendImage = document.querySelector('.legend-image');
+            const legendIcon = legendHeader.querySelector('i');
+
+            legendHeader.addEventListener('click', function() {
+                legendImage.classList.toggle('hidden');
+                if (legendImage.classList.contains('hidden')) {
+                    legendIcon.className = 'fa fa-caret-up';
+                } else {
+                    legendIcon.className = 'fa fa-caret-down';
+                }
+            });
+            
+        /* --- COLLAPSIBLE CONTROL PANEL LOGIC --- */
         setTimeout(function() {
             var controlContainer = document.querySelector('.leaflet-control-layers');
             var controlList = document.querySelector('.leaflet-control-layers-list');
