@@ -16,6 +16,7 @@
             height: 100%;
             padding: 0;
             margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         /* --- LEGEND STYLES --- */
@@ -25,36 +26,43 @@
             right: 55px; 
             z-index: 2000 !important;
             background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-            font-family: Arial, sans-serif;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             width: auto;
-            min-width: 120px;
+            min-width: 140px;
             max-width: 250px;
+            overflow: hidden;
         }
 
         /* Shared Header Styles */
         .legend-header, .layer-control-header {
-            padding: 10px;
+            padding: 12px 16px;
             cursor: pointer;
-            border-bottom: 1px solid #eee;
-            background-color: #fff;
-            border-radius: 5px 5px 0 0;
-            font-size: 0.88em;
-            font-weight: bold;
+            border-bottom: 1px solid #f3f4f6;
+            background-color: #f9fafb;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #111827;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .legend-header:hover, .layer-control-header:hover {
+            background-color: #f3f4f6;
         }
 
         .header-collapsed {
-            border-radius: 5px !important;
+            border-radius: 8px !important;
             border-bottom: none !important;
         }
 
         .legend-image {
-            padding: 10px;
+            padding: 12px;
             display: block;
+            background: white;
         }
 
         .legend-image.hidden {
@@ -62,11 +70,12 @@
             padding: 0;
         }
     
-        /* --- SLIDER CONTAINER STYLES --- */
+        /* --- MODERN SLIDER STYLES --- */
         .slider-wrapper {
             position: relative;
             width: 100%;
-            height: 14px; 
+            padding-top: 5px;
+            height: 24px; /* Sufficient height for thumb */
             display: flex;
             align-items: center;
         }
@@ -75,53 +84,69 @@
             -webkit-appearance: none;
             appearance: none;
             width: 100%; 
-            height: 2px; 
-            background: transparent;
+            height: 6px;
+            background: #e5e7eb; /* Default gray track */
+            border-radius: 3px;
             outline: none;
+            margin: 0;
             cursor: pointer;
             position: relative;
-            z-index: 3; 
-            margin: 0;
-        }
-
-        /* Track Styles */
-        .custom-slider::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 2px;
-            background: #a9d7ff;
-        }
-        .custom-slider::-moz-range-track {
-            width: 100%;
-            height: 2px;
-            background: #a9d7ff;
+            z-index: 3;
         }
 
         /* Thumb Styles */
         .custom-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 10px;
-            width: 10px;
+            height: 18px;
+            width: 18px;
             border-radius: 50%;
-            background: #007bff;
-            margin-top: -4px;
-            border: 1px solid #fff;
-            box-shadow: 0 0 2px rgba(0,0,0,0.3);
+            background: #ffffff;
+            cursor: pointer;
+            margin-top: -6px; /* Centers thumb on 6px track */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border: 1px solid #d1d5db;
+            transition: transform 0.1s ease, border-color 0.1s ease;
         }
+        
+        .custom-slider::-webkit-slider-thumb:hover {
+            border-color: #16a34a; /* Green hover */
+            transform: scale(1.1);
+        }
+
         .custom-slider::-moz-range-thumb {
-            height: 10px;
-            width: 10px;
+            height: 18px;
+            width: 18px;
             border-radius: 50%;
-            background: #007bff;
-            border: 1px solid #fff;
-            box-shadow: 0 0 2px rgba(0,0,0,0.3);
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid #d1d5db;
+        }
+
+        /* Track Styles */
+        .custom-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: transparent; 
+            border-radius: 3px;
+        }
+        .custom-slider::-moz-range-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: transparent;
+            border-radius: 3px;
         }
         
         /* --- DOTS --- */
         .slider-dots {
             position: absolute;
-            left: 0;  
-            right: 0; 
-            width: 100%;
+            left: 2px;  
+            right: 2px; 
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
             display: flex;
             justify-content: space-between;
             pointer-events: none;
@@ -129,32 +154,75 @@
         }
 
         .dot {
-            width: 5px;
-            height: 5px;
-            background-color: #a9d7ff;
+            width: 4px;
+            height: 4px;
+            background-color: #9ca3af;
             border-radius: 50%;
-            transform: translateY(0px); 
         }
 
         .slider-disabled {
-            opacity: 0.4;
+            opacity: 0.5;
             pointer-events: none;
             filter: grayscale(100%);
             transition: opacity 0.3s ease;
         }
 
-        /* --- LAYER CONTROL STYLES --- */
+        /* --- MODERN TOGGLE SWITCHES --- */
+        .leaflet-control-layers-selector {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 20px;
+            width: 36px;
+            background-color: #e5e7eb;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-right: 10px;
+            outline: none;
+            transition: background-color 0.2s ease;
+            top: -1px;
+            border: none;
+        }
+
+        .leaflet-control-layers-selector::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .leaflet-control-layers-selector:checked {
+            background-color: #16a34a; /* Green 600 - Matches Portal Landscape Theme */
+        }
+        
+        input[type="radio"].leaflet-control-layers-selector:checked {
+             background-color: #2563eb; /* Blue 600 for Basemaps */
+        }
+
+        .leaflet-control-layers-selector:checked::after {
+            transform: translateX(16px);
+        }
+
+        /* --- LAYER CONTROL CONTAINER --- */
         .leaflet-control-layers { 
             z-index: 1001 !important; 
-            box-shadow: 0 1px 5px rgba(0,0,0,0.4) !important; 
-            border-radius: 5px !important; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+            border-radius: 8px !important; 
             padding: 0 !important; 
             background: #fff;
             width: fit-content;
+            border: none !important;
         }
 
         .leaflet-control-layers-list {
-            padding: 4px;
+            padding: 12px;
             overflow-y: auto;
             max-height: 80vh;
         }
@@ -163,17 +231,39 @@
             display: none !important;
         }
 
-        .leaflet-control-layers-tree { font-size: 12px; min-width: 230px; }
-        .slider-row { padding-left: 20px; padding-right: 5px; margin-bottom: 5px; }
-        .slider-label-text { font-size: 11px; color: #555; display: flex; justify-content: space-between; }
-        .active-value { font-weight: bold; color: #007bff; }
+        .leaflet-control-layers-tree { font-size: 13px; min-width: 250px; color: #374151; }
+        .slider-row { padding-left: 0px; padding-right: 0px; margin-bottom: 8px; margin-top: 4px; }
+        .slider-label-text { font-size: 12px; color: #4b5563; display: flex; justify-content: space-between; margin-bottom: 2px; font-weight: 500;}
+        .active-value { 
+            font-weight: 600; 
+            color: #15803d; 
+            background-color: #dcfce7;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-left: 6px;
+        }
+        
+        /* Adjust spacing for labels in tree */
+        .leaflet-control-layers-overlays > label,
+        .leaflet-control-layers-base > label {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+        }
+        
+        /* Indent slider content slightly to align with text */
+        #status-controls-wrapper, #flows-slider-wrapper {
+            padding-left: 4px;
+        }
+
         </style>
         <title></title>
     </head>
     <body>
         <div id="map">
             <div class="legend-container">
-                <div class="legend-header">LC legend <i class="fa fa-caret-up"></i></div>
+                <div class="legend-header">LC Legend <i class="fa fa-caret-up"></i></div>
                 <img src="legend.png" alt="Map Legend" class="legend-image hidden">
             </div>
         </div>
@@ -212,16 +302,16 @@
          return tempDiv.innerHTML;
         }
         
-		function addClassToPopupIfMedia(content, popup) {
-			var tempDiv = document.createElement('div');
-			tempDiv.innerHTML = content;
-			if (tempDiv.querySelector('td img')) {
-				popup._contentNode.classList.add('media');
-					setTimeout(function() { popup.update(); }, 10);
-			} else {
-				popup._contentNode.classList.remove('media');
-			}
-		}
+        function addClassToPopupIfMedia(content, popup) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            if (tempDiv.querySelector('td img')) {
+                popup._contentNode.classList.add('media');
+                    setTimeout(function() { popup.update(); }, 10);
+            } else {
+                popup._contentNode.classList.remove('media');
+            }
+        }
         var zoomControl = L.control.zoom({ position: 'bottomright' }).addTo(map);
         var bounds_group = new L.featureGroup([]);
         
@@ -300,7 +390,7 @@
             'LC Status <span id="year-tree-display" class="active-value">2024</span>' +
             '<div id="status-controls-wrapper">' + 
                 '<div class="slider-row">' +
-                    '<div class="slider-label-text"><span style="font-weight: bold;">Year</span></div>' +
+                    '<div class="slider-label-text"><span>Select Year</span></div>' +
                     '<div class="slider-wrapper">' +
                         '<div class="slider-dots">' +
                             '<div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>' +
@@ -309,12 +399,13 @@
                     '</div>' +
                 '</div>' +
                 '<div class="slider-row">' +
-                    '<div class="slider-label-text"><span>Transparency</span><span id="opacity-tree-display">100%</span></div>' +
+                    '<div class="slider-label-text"><span>Transparency</span><span id="opacity-tree-display" style="font-size:11px; color:#6b7280;">100%</span></div>' +
                     '<input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider" id="opacity-tree-slider">' +
                 '</div>' +
             '</div>';
 
-        var flowsLabel = 'LC Flows 2020-2024<div id="flows-slider-wrapper" class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_LCflows20202024_4"></div>';
+        var flowsLabel = 'LC Flows <span style="font-size:11px; color:#6b7280; font-weight:400;">(2020-2024)</span><div id="flows-slider-wrapper" class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_LCflows20202024_4"></div>';
+        
         var osmLabel = 'Open Street Map<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1"></div>';
         var googleLabel = 'Google Earth<div class="slider-row"><input type="range" min="0" max="1" step="0.1" value="0.7" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0"></div>';
 
@@ -339,8 +430,54 @@
         ];
 
         let currentIndex = 5;
+        
+        /* --- HELPER FOR SLIDER SHADING --- */
+        function updateSliderBackground(slider) {
+            if (!slider) return;
+            
+            // Skip shading for Year Slider to keep dots clear
+            if (slider.id === 'year-tree-slider') {
+                slider.style.background = '#e5e7eb';
+                return;
+            }
+
+            // Check if disabled (grey out)
+            var parentWrapper = slider.closest('#status-controls-wrapper') || slider.closest('#flows-slider-wrapper');
+            if (parentWrapper && parentWrapper.classList.contains('slider-disabled')) {
+                slider.style.background = '#e5e7eb';
+                return;
+            }
+            
+            // Check for generic layers (Basemaps)
+            const layerName = slider.getAttribute('data-layer');
+            if (layerName && window[layerName] && !map.hasLayer(window[layerName])) {
+                 slider.style.background = '#e5e7eb';
+                 return;
+            }
+
+            const min = slider.min ? parseFloat(slider.min) : 0;
+            const max = slider.max ? parseFloat(slider.max) : 100;
+            const val = parseFloat(slider.value);
+            const percentage = ((val - min) / (max - min)) * 100;
+
+            // Green for Data layers, Blue for Basemaps
+            let color = '22, 163, 74'; // Green 600
+            if (layerName && (layerName.includes('OpenStreetMap') || layerName.includes('GoogleEarth'))) {
+                color = '37, 99, 235'; // Blue 600
+            }
+
+            slider.style.background = `linear-gradient(to right, rgba(${color}, 0.2) 0%, rgba(${color}, 1) ${percentage}%, #e5e7eb ${percentage}%)`;
+        }
+
+        function initSliderShading() {
+            document.querySelectorAll('.custom-slider').forEach(slider => updateSliderBackground(slider));
+        }
 
         document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('custom-slider')) {
+                updateSliderBackground(e.target);
+            }
+            
             if (e.target.id === 'year-tree-slider') {
                 var index = parseInt(e.target.value);
                 document.getElementById('year-tree-display').innerText = timeSeriesLayers[index].year;
@@ -366,11 +503,15 @@
         document.addEventListener('click', function(e) { if (e.target.classList.contains('custom-slider')) e.stopPropagation(); });
 
         map.on('overlayadd', function(e) {
+            // Update sliders shading when layers are toggled
+            setTimeout(initSliderShading, 20);
+
             if (e.layer === layer_LCflows20202024_4) {
                 setTimeout(() => { 
                     if (map.hasLayer(group_LCStatus)) map.removeLayer(group_LCStatus);
                     document.getElementById('status-controls-wrapper').classList.add('slider-disabled');
                     document.getElementById('flows-slider-wrapper').classList.remove('slider-disabled');
+                    initSliderShading();
                 }, 10);
             }
             if (e.layer === group_LCStatus) {
@@ -378,9 +519,17 @@
                     if (map.hasLayer(layer_LCflows20202024_4)) map.removeLayer(layer_LCflows20202024_4);
                     document.getElementById('status-controls-wrapper').classList.remove('slider-disabled');
                     document.getElementById('flows-slider-wrapper').classList.add('slider-disabled');
+                    initSliderShading();
                 }, 10);
             }
         });
+        
+        map.on('overlayremove', function(e) {
+            setTimeout(initSliderShading, 20);
+        });
+        
+        // Initialize shading on load
+        setTimeout(initSliderShading, 500);
         
         const legendHeader = document.querySelector('.legend-header');
         const legendImage = document.querySelector('.legend-image');
