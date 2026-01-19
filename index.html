@@ -399,16 +399,16 @@
          return tempDiv.innerHTML;
         }
         
-		function addClassToPopupIfMedia(content, popup) {
-			var tempDiv = document.createElement('div');
-			tempDiv.innerHTML = content;
-			if (tempDiv.querySelector('td img')) {
-				popup._contentNode.classList.add('media');
-					setTimeout(function() { popup.update(); }, 10);
-			} else {
-				popup._contentNode.classList.remove('media');
-			}
-		}
+        function addClassToPopupIfMedia(content, popup) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            if (tempDiv.querySelector('td img')) {
+                popup._contentNode.classList.add('media');
+                    setTimeout(function() { popup.update(); }, 10);
+            } else {
+                popup._contentNode.classList.remove('media');
+            }
+        }
         var zoomControl = L.control.zoom({ position: 'bottomright' }).addTo(map);
         var bounds_group = new L.featureGroup([]);
         function setBounds() {}
@@ -457,8 +457,8 @@
                     <tr><th scope="row">PROVINCE_2</th><td class="visible-with-data" id="PROVINCE_2">' + (feature.properties['PROVINCE_2'] !== null ? autolinker.link(String(feature.properties['PROVINCE_2']).replace(/'/g, '\'').toLocaleString()) : '') + '</td></tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) { addClassToPopupIfMedia(content, e.popup); });
-			layer.bindPopup(content, { maxHeight: 400 });
+            layer.on('popupopen', function(e) { addClassToPopupIfMedia(content, e.popup); });
+            layer.bindPopup(content, { maxHeight: 400 });
         }
         function style_AOIGreenNexus_5_0() {
             return { pane: 'pane_AOIGreenNexus_5', opacity: 1, color: 'rgba(168,0,0,1.0)', weight: 1.0, fill: true, fillOpacity: 1, fillColor: 'rgba(183,72,75,0.0)', interactive: false }
@@ -520,9 +520,8 @@
                 '</div>' +
             '</div>';
 
-        var flowsLabel =
-            '<span class="fake-group-item" style="margin-bottom: 8px;">LC Flows 2020-2024</span>' +
-            '<div id="flows-slider-wrapper" style="margin-bottom: 20px;">' +
+        var flowsSliderHTML = 
+            '<div id="flows-slider-wrapper" style="margin-top: -15px; margin-bottom: 20px;">' +
                 '<div class="slider-row">' +
                     '<div class="slider-label-text"><span>Transparency</span><span class="active-value" id="opacity-flows-display">100%</span></div>' +
                     '<div class="slider-wrapper">' +
@@ -532,28 +531,18 @@
                     '</div>' +
                 '</div>' +
             '</div>';
-
-
         
         var osmLabel = '<span class="layer-name">Open Street Map</span><div class="slider-row"><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1" style="--track-color: #007bff; --track-light: #cce5ff; --value: 100%;"></div></div>';
         
         var googleLabel = '<span class="layer-name">Google Earth</span><div class="slider-row" style="margin-bottom: 30px;"><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="0.95" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0" style="--track-color: #007bff; --track-light: #cce5ff; --value: 95%;"></div></div>';
 
         var overlaysTree = [
-            // Header for LC
-            {
-                label: '<span class="group-title">Land Cover & Land Use</span>',
-                layer: null
-            },
-            
-            // --- EMPTY ROW ---
-            { label: '<div style="height: 8px;"></div>', layer: null }, 
-
             // LC Flows (Equivalent to Aggregate)
-            {label: flowsLabel, layer: layer_LCflows20202024_4, radioGroup: 'lc' },
+            {label: 'LC Flows 2020-2024', layer: layer_LCflows20202024_4, radioGroup: 'lc' },
+            {label: flowsSliderHTML, layer: null },
             
             // LC Status (Equivalent to Time Series)
-            {label: '<span class="fake-group-item">LC Status Time Series</span>', layer: group_LCStatus, radioGroup: 'lc' },
+            {label: 'LC Status Time Series', layer: group_LCStatus, radioGroup: 'lc' },
             {label: statusControlsHTML, layer: null }, // Controls sit below
 
             // Basemaps Middle
@@ -590,25 +579,7 @@
         }, 500);
 
         /* --- FORCE GROUP OPEN --- */
-        setTimeout(function () {
-            document.querySelectorAll('.leaflet-control-layers-group-label')
-                .forEach(function (label) {
-                    if (label.textContent.trim().includes('Land Cover & Land Use')) {
-                        var row = label.closest('.leaflet-layer-def');
-                        if (row) {
-                            row.classList.remove('leaflet-layer-def-closed');
-                            row.classList.add('leaflet-layer-def-open');
-                        }
-                        var arrow = label.querySelector('.leaflet-control-layers-group-selector');
-                        if (arrow) arrow.style.display = 'none';
-                        label.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            e.stopImmediatePropagation();
-                            return false;
-                        }, true);
-                    }
-                });
-        }, 600);
+        /* Removed auto-expand loop since group header is gone */
 
         setBounds();
         </script>
@@ -748,13 +719,13 @@
             }, 500);
 
             /* --- LEGEND TOGGLE --- */
-    	    const legendHeader = document.querySelector('.legend-header');
-    	    const legendImage = document.querySelector('.legend-image');
+            const legendHeader = document.querySelector('.legend-header');
+            const legendImage = document.querySelector('.legend-image');
             const legendIcon = legendHeader.querySelector('i');
-    	    legendHeader.addEventListener('click', function() {
+            legendHeader.addEventListener('click', function() {
                 legendImage.classList.toggle('hidden');
                 legendIcon.className = legendImage.classList.contains('hidden') ? 'fa fa-caret-up' : 'fa fa-caret-down';
-    	    });
+            });
         </script>
     </body>
 </html>
