@@ -19,19 +19,36 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* --- UNIFIED CONTROL STYLING --- */
+        /* Forces consistent border, rounding, and shadow across Legend, Layers, and Zoom */
+        .leaflet-control-layers,
+        .leaflet-bar,
+        .legend-control {
+            border: 2px solid rgba(0,0,0,0.2) !important;
+            border-radius: 8px !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+            background-color: #fff;
+            overflow: hidden; 
+            background-clip: padding-box;
+        }
+
+        /* Fix for Leaflet Zoom Buttons to respect container rounding */
+        .leaflet-touch .leaflet-bar a:first-child {
+            border-top-left-radius: 6px !important; 
+            border-top-right-radius: 6px !important;
+        }
+        .leaflet-touch .leaflet-bar a:last-child {
+            border-bottom-left-radius: 6px !important;
+            border-bottom-right-radius: 6px !important;
+        }
+
         /* --- LEGEND STYLES --- */
-        .legend-container {
-            position: absolute;
-            bottom: 28px;
-            right: 55px;
-            z-index: 2000 !important;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-            font-family: inherit;
+        .legend-control {
             width: auto;          
             min-width: 150px;     
-            max-width: 250px;     
+            max-width: 250px;
+            margin-bottom: 10px !important; 
+            margin-right: 10px !important;
         }
 
         .legend-header {
@@ -39,7 +56,6 @@
             cursor: pointer;
             border-bottom: 1px solid #f0f0f0;
             background-color: #fff;
-            border-radius: 8px 8px 0 0; 
             font-size: 14px;
             font-weight: 600;
             color: #333;
@@ -48,49 +64,42 @@
             align-items: center;
         }
 
-        /* --- HEADER FOR LAYER CONTROL --- */
-        .layer-control-header {
-            padding: 12px 10px 5px 10px; 
-            cursor: pointer;
-            background-color: transparent; 
-            border-bottom: none; 
-            border-radius: 8px 8px 0 0; 
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
+        /* Removes inner border when collapsed so the container border takes over */
         .header-collapsed {
-            border-radius: 8px !important;
+            border-bottom: none !important;
         }
 
         .legend-image {
             padding: 10px;
             display: block;
+            background: white;
         }
 
         .legend-image.hidden {
             display: none;
             padding: 0;
         }
-    
+
         /* --- LAYER CONTROL STYLES --- */
+        /* Header for Layer Control */
+        .layer-control-header {
+            padding: 12px 10px 5px 10px; 
+            cursor: pointer;
+            background-color: transparent; 
+            border-bottom: none; 
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
         
         .leaflet-control-layers {
-            z-index: 1001 !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
-            background: #fff; 
-            border-radius: 8px !important;
-            border: none !important;
             padding: 0 !important; 
-            
             width: fit-content !important; 
             min-width: auto; 
             max-width: 350px;
-            
             margin-bottom: 10px !important;
         }
 
@@ -115,7 +124,6 @@
             cursor: pointer;
         }
 
-        /* TEXT Container */
         .leaflet-control-layers-selector + span {
             order: 2; 
             flex-grow: 1;
@@ -164,27 +172,23 @@
         }
         
         /* --- CUSTOM COLOR TOGGLES --- */
-        /* Blue (OSM / Google) */
         .toggle-blue:checked {
             background: #007bff !important; 
             border-color: #007bff !important;
         }
         .toggle-blue:checked:hover { background-color: #0056b3 !important; }
 
-        /* Black (Zambia) */
         .toggle-black:checked {
             background: #000000 !important; 
             border-color: #000000 !important;
         }
         .toggle-black:checked:hover { background-color: #333333 !important; }
 
-        /* Red (AOI) */
         .toggle-red:checked {
             background: #dc3545 !important; 
             border-color: #dc3545 !important;
         }
         .toggle-red:checked:hover { background-color: #a71d2a !important; }
-
 
         .leaflet-control-layers-selector:checked::after {
             transform: translateX(16px);
@@ -193,7 +197,6 @@
         .leaflet-control-layers-selector:checked:hover { background-color: #218838; }
 
         /* --- SLIDER STYLING --- */
-        
         .slider-row {
             padding-left: 0; 
             padding-right: 0;
@@ -208,7 +211,6 @@
                 margin-bottom: 10px;
         }
 
-        /* Adjust nested sliders */
         .leaflet-control-layers-selector + span .slider-row {
             margin-left: -48px; 
             width: calc(100% + 48px); 
@@ -252,39 +254,27 @@
             position: relative;
             z-index: 3; 
             margin: 0;
-            /* Default CSS variables (Gray) */
             --track-color: #6c757d;
             --track-light: #e9ecef;
             --value: 100%;
         }
 
-        /* Webkit Track */
         .custom-slider::-webkit-slider-runnable-track { 
-            width: 100%; 
-            height: 4px; 
-            border-radius: 4px; 
+            width: 100%; height: 4px; border-radius: 4px; 
             background: linear-gradient(to right, var(--track-light) 0%, var(--track-color) var(--value), #e9ecef var(--value), #e9ecef 100%);
         }
-        
-        /* Firefox Track */
         .custom-slider::-moz-range-track { 
-            width: 100%; 
-            height: 4px; 
-            border-radius: 4px;
+            width: 100%; height: 4px; border-radius: 4px;
             background: linear-gradient(to right, var(--track-light) 0%, var(--track-color) var(--value), #e9ecef var(--value), #e9ecef 100%);
         }
 
-        /* Thumbs */
         .custom-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 18px; width: 18px;
-            border-radius: 50%; background: #fff;
-            margin-top: -7px;
+            -webkit-appearance: none; height: 18px; width: 18px;
+            border-radius: 50%; background: #fff; margin-top: -7px;
             border: 1px solid var(--track-color); 
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             transition: border-color 0.2s, transform 0.1s;
         }
-        
         .custom-slider::-moz-range-thumb {
             height: 18px; width: 18px;
             border-radius: 50%; background: #fff;
@@ -303,67 +293,25 @@
             transition: opacity 0.3s ease;
         }
 
-        /* --- MISC --- */
-        .fake-group-item {
-            padding-left: 0px;
-            font-size: 13px;
-            display: block; 
-            width: 100%;
-        }
-        
         .layer-list-hidden { display: none !important; }
-
-        .leaflet-control-layers-group-label:has(.force-open-label) {
-            pointer-events: none; cursor: default;
-        }
-        
-        .group-title {
-            font-size: 13px; 
-            font-weight: 700; 
-            color: #333;
-            margin-top: 0px; 
-            margin-bottom: 8px;
-            display: block; 
-            white-space: nowrap;
-        }
-
+        .leaflet-control-layers-group-label:has(.force-open-label) { pointer-events: none; cursor: default; }
+        .group-title { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 8px; display: block; white-space: nowrap; }
         .leaflet-control-layers-group-selector { display: none; }
 
         /* --- DOTS ABOVE SLIDER --- */
         #year-ticks {
-            position: absolute;
-            top: -2px;
-            left: 0;
-            right: 0;
-            height: 4px;
-            pointer-events: none;
-            z-index: 1;
-            /* Flexbox ensures exact start/end alignment */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            /* Padding = 9px matches half the thumb width (18px) to align dot center with thumb center */
-            padding: 0 9px; 
-            box-sizing: border-box;
+            position: absolute; top: -2px; left: 0; right: 0; height: 4px;
+            pointer-events: none; z-index: 1;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 9px; box-sizing: border-box;
         }
-
-        .tick-dot {
-            width: 3px;
-            height: 3px;
-            background-color: #adb5bd;
-            border-radius: 50%;
-        }
+        .tick-dot { width: 3px; height: 3px; background-color: #adb5bd; border-radius: 50%; }
 
         </style>
         <title></title>
     </head>
     <body>
-        <div id="map">
-            <div class="legend-container">
-                <div class="legend-header">LC legend <i class="fa fa-caret-up"></i></div>
-                <img src="legend.png" alt="Map Legend" class="legend-image hidden">
-            </div>
-        </div>
+        <div id="map"></div>
 
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
@@ -378,7 +326,6 @@
         <script src="data/AOIGreenNexus_5.js"></script>
         <script src="data/Zambia.js"></script>
         <script>
-        /* --- 1. INITIALIZE MAP WITH MAX ZOOM 18 --- */
         var map = L.map('map', {
             zoomControl:false, maxZoom:18, minZoom:3
         }).fitBounds([[-19.0,23.0],[-9.0,33.0]]);
@@ -429,10 +376,7 @@
             pane: 'pane_OpenStreetMap_1', opacity: 0.7, minZoom: 3, maxZoom: 18
         });
         
-        /* --- LULC LAYERS (Overzooming Enabled) --- */
-        // maxNativeZoom: 14 tells Leaflet to stop looking for new tiles after level 14
-        // maxZoom: 18 tells Leaflet to stretch the level 14 tiles for 4 more levels
-
+        /* --- LULC LAYERS --- */
         map.createPane('pane_LULCstatus2000');
         var layer_LULCstatus2000 = L.tileLayer('https://eu-central-1.linodeobjects.com/gisat-data/SLIM_GST-239/project/data/XYZ/XYZ_LULC_2000_v3/{z}/{x}/{y}.png', { 
             pane: 'pane_LULCstatus2000', opacity: 1.0, maxNativeZoom: 14, maxZoom: 18 
@@ -488,7 +432,7 @@
             attribution: '', interactive: false, pane: 'pane_AOIGreenNexus_5', onEachFeature: pop_AOIGreenNexus_5, style: style_AOIGreenNexus_5_0
         });
         bounds_group.addLayer(layer_AOIGreenNexus_5);
-        map.addLayer(layer_AOIGreenNexus_5); // ADDED DEFAULT ON
+        map.addLayer(layer_AOIGreenNexus_5); 
 
         /* --- ZAMBIA BORDER --- */
         function style_Zambia() {
@@ -516,19 +460,13 @@
         map.addLayer(group_LCStatus);
 
         /* --- CONTROLS HTML STRINGS --- */
-        
         var statusControlsHTML = 
             '<div id="status-controls-wrapper" style="margin-top: -22px; margin-bottom: 40px;">' + 
                 '<div class="slider-row">' +
                     '<div class="slider-label-text"><span>Year</span><span id="year-tree-display" class="active-value">2024</span></div>' +
                     '<div class="slider-wrapper">' + 
                         '<div id="year-ticks">' +
-                            '<div class="tick-dot"></div>' + // 2000
-                            '<div class="tick-dot"></div>' + // 2005
-                            '<div class="tick-dot"></div>' + // 2010
-                            '<div class="tick-dot"></div>' + // 2015
-                            '<div class="tick-dot"></div>' + // 2020
-                            '<div class="tick-dot"></div>' + // 2024
+                            '<div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div>' +
                         '</div>' +
                         '<input type="range" min="0" max="5" value="5" class="custom-slider" id="year-tree-slider" style="--track-color: #28a745; --track-light: #d4edda; --value: 100%;">' + 
                     '</div>' +
@@ -551,24 +489,17 @@
                 '</div>' +
             '</div>';
         
-        var osmLabel = '<span class="layer-name">Open Street Map</span><div class="slider-row"><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1" style="--track-color: #007bff; --track-light: #cce5ff; --value: 100%;"></div></div>';
+        var osmLabel = '<span class="layer-name">Open Street Map</span><div class="slider-row" style="margin-top: 15px;"><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" data-layer="layer_OpenStreetMap_1" style="--track-color: #007bff; --track-light: #cce5ff; --value: 100%;"></div></div>';
         
-        var googleLabel = '<span class="layer-name">Google Earth</span><div class="slider-row" style="margin-bottom: 30px;"><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="0.95" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0" style="--track-color: #007bff; --track-light: #cce5ff; --value: 95%;"></div></div>';
+        var googleLabel = '<span class="layer-name">Google Earth</span><div class="slider-row" style="margin-bottom: 30px; margin-top: 15px;"><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="0.95" class="custom-slider opacity-slider" data-layer="layer_GoogleEarth_0" style="--track-color: #007bff; --track-light: #cce5ff; --value: 95%;"></div></div>';
 
         var overlaysTree = [
-            // LC Flows (Equivalent to Aggregate)
             {label: 'LC Flows 2020-2024', layer: layer_LCflows20202024_4, radioGroup: 'lc' },
             {label: flowsSliderHTML, layer: null },
-            
-            // LC Status (Equivalent to Time Series)
             {label: 'LC Status Time Series', layer: group_LCStatus, radioGroup: 'lc' },
-            {label: statusControlsHTML, layer: null }, // Controls sit below
-
-            // Basemaps Middle
+            {label: statusControlsHTML, layer: null }, 
             {label: osmLabel, layer: layer_OpenStreetMap_1, radioGroup: 'bm' },
             {label: googleLabel, layer: layer_GoogleEarth_0, radioGroup: 'bm' },
-            
-            // Zambia & AOI Bottom
             {label: 'Zambia border', layer: layer_Zambia},
             {label: 'AOI: Green Nexus', layer: layer_AOIGreenNexus_5},
         ];
@@ -578,6 +509,38 @@
             position: 'bottomright',
         });
         lay.addTo(map);
+
+        // --- NEW LEGEND CONTROL IMPLEMENTATION ---
+        var legendControl = L.control({ position: 'bottomright' });
+
+        legendControl.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'legend-control');
+            div.innerHTML = `
+                <div class="legend-header">LC legend <i class="fa fa-caret-up"></i></div>
+                <img src="legend.png" alt="Map Legend" class="legend-image hidden">
+            `;
+            
+            var header = div.querySelector('.legend-header');
+            var image = div.querySelector('.legend-image');
+            var icon = div.querySelector('i');
+            
+            L.DomEvent.disableClickPropagation(div);
+            
+            header.addEventListener('click', function() {
+                image.classList.toggle('hidden');
+                header.classList.toggle('header-collapsed'); // Toggles bottom border off/on
+                
+                if (image.classList.contains('hidden')) {
+                    icon.className = 'fa fa-caret-up'; 
+                } else {
+                    icon.className = 'fa fa-caret-down'; 
+                }
+            });
+            
+            return div;
+        };
+
+        legendControl.addTo(map);
 
         /* --- APPLY COLORS TO TOGGLES --- */
         setTimeout(function() {
@@ -596,9 +559,6 @@
                 }
             });
         }, 500);
-
-        /* --- FORCE GROUP OPEN --- */
-        /* Removed auto-expand loop since group header is gone */
 
         setBounds();
         </script>
@@ -644,7 +604,6 @@
 
             let currentIndex = 5;
 
-            /* --- SLIDER LOGIC --- */
             function updateSliderFill(sliderInput) {
                 var value = (sliderInput.value - sliderInput.min) / (sliderInput.max - sliderInput.min) * 100;
                 sliderInput.style.setProperty('--value', value + '%');
@@ -653,7 +612,6 @@
             document.addEventListener('input', function(e) {
                 if (!e.target) return;
 
-                // Year Slider
                 if (e.target.id === 'year-tree-slider') {
                     var index = parseInt(e.target.value);
                     document.getElementById('year-tree-display').innerText = timeSeriesLayers[index].year;
@@ -663,14 +621,12 @@
                     group_LCStatus.clearLayers();
                     var activeItem = timeSeriesLayers[index];
                     
-                    // Apply opacity from opacity slider
                     var opVal = document.getElementById('opacity-tree-slider').value;
                     activeItem.layer.setOpacity(opVal);
                     
                     group_LCStatus.addLayer(activeItem.layer);
                     currentIndex = index;
 
-                    // Ensure Status is active if slider is moved
                     if (map.hasLayer(layer_LCflows20202024_4)) {
                         map.removeLayer(layer_LCflows20202024_4);
                         map.addLayer(group_LCStatus);
@@ -678,7 +634,6 @@
                     if (!map.hasLayer(group_LCStatus)) map.addLayer(group_LCStatus);
                 }
 
-                // Opacity Slider (Time Series)
                 if (e.target.id === 'opacity-tree-slider') {
                     var val = e.target.value;
                     document.getElementById('opacity-tree-display').innerText = Math.round(val * 100) + '%';
@@ -686,7 +641,6 @@
                     timeSeriesLayers[currentIndex].layer.setOpacity(val);
                 }
 
-                // Generic Opacity Sliders
                 if (e.target.classList.contains('opacity-slider')) {
                     updateSliderFill(e.target);
                     window[e.target.getAttribute('data-layer')].setOpacity(e.target.value);
@@ -701,7 +655,6 @@
             document.addEventListener('mousedown', function(e) { if (e.target.classList.contains('custom-slider')) e.stopPropagation(); });
             document.addEventListener('click', function(e) { if (e.target.classList.contains('custom-slider')) e.stopPropagation(); });
 
-            /* --- EXCLUSIVITY LOGIC (Greying out controls) --- */
             map.on('overlayadd', function(e) {
                 var statusWrapper = document.getElementById('status-controls-wrapper');
                 var flowsWrapper = document.getElementById('flows-slider-wrapper');
@@ -722,12 +675,10 @@
                 }
             });
 
-            /* Initialize Exclusion State */
             setTimeout(function() {
                  var statusWrapper = document.getElementById('status-controls-wrapper');
                  var flowsWrapper = document.getElementById('flows-slider-wrapper');
                  
-                 // If Flows is on, disable Status controls
                  if (map.hasLayer(layer_LCflows20202024_4)) {
                      if(statusWrapper) statusWrapper.classList.add('slider-disabled');
                      if(flowsWrapper) flowsWrapper.classList.remove('slider-disabled');
@@ -736,15 +687,6 @@
                      if(flowsWrapper) flowsWrapper.classList.add('slider-disabled');
                  }
             }, 500);
-
-            /* --- LEGEND TOGGLE --- */
-            const legendHeader = document.querySelector('.legend-header');
-            const legendImage = document.querySelector('.legend-image');
-            const legendIcon = legendHeader.querySelector('i');
-            legendHeader.addEventListener('click', function() {
-                legendImage.classList.toggle('hidden');
-                legendIcon.className = legendImage.classList.contains('hidden') ? 'fa fa-caret-up' : 'fa fa-caret-down';
-            });
         </script>
     </body>
 </html>
