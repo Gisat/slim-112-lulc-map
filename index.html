@@ -34,92 +34,174 @@
         .leaflet-touch .leaflet-bar a:first-child { border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; }
         .leaflet-touch .leaflet-bar a:last-child { border-bottom-left-radius: 6px !important; border-bottom-right-radius: 6px !important; }
 
-        /* --- STACKING SPACING --- */
-        .legend-control { margin-bottom: 10px !important; }
-        .leaflet-control-layers { margin-bottom: 10px !important; }
-
         /* --- LEGEND STYLES --- */
-        .legend-control { width: auto; min-width: 150px; max-width: 250px; }
-        .legend-header {
-            padding: 12px 15px; cursor: pointer; border-bottom: 1px solid #f0f0f0;
-            background-color: #fff; font-size: 14px; font-weight: 600; color: #333;
-            display: flex; justify-content: space-between; align-items: center;
+        .legend-control { 
+            width: auto; 
+            min-width: 150px; 
+            max-width: 250px; 
+            margin-bottom: 10px !important; 
+            margin-right: 10px !important; 
         }
+        
+        .legend-header {
+            padding: 12px 15px; 
+            cursor: pointer; 
+            border-bottom: 1px solid #f0f0f0;
+            background-color: #fff; 
+            font-size: 14px; 
+            font-weight: 600; 
+            color: #333;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
         .header-collapsed { border-bottom: none !important; }
-        .legend-image { padding: 10px; display: block; background: white; }
+        
+        .legend-image { padding: 10px; display: block; background: white; max-width: 100%; }
         .legend-image.hidden { display: none; padding: 0; }
 
         /* --- LAYER CONTROL STYLES --- */
         .layer-control-header {
-            padding: 12px 10px 5px 10px; cursor: pointer; font-size: 14px; font-weight: 600;
-            color: #333; display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 10px 5px 10px; 
+            cursor: pointer; 
+            background-color: transparent; 
+            border-bottom: none; 
+            font-size: 14px; 
+            font-weight: 600;
+            color: #333; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
         }
-        .leaflet-control-layers { padding: 0 !important; width: fit-content !important; max-width: 350px; }
-        .leaflet-control-layers-list { padding: 2px 10px 15px 8px; overflow-y: auto; max-height: 60vh; color: #444; }
-        .leaflet-control-layers label { display: flex; align-items: flex-start; justify-content: flex-start; flex-wrap: wrap; margin-bottom: 8px; cursor: pointer; }
-        .leaflet-control-layers-selector + span { order: 2; flex-grow: 1; display: flex; flex-direction: column; width: auto; }
+        
+        .leaflet-control-layers { 
+            padding: 0 !important; 
+            width: fit-content !important; 
+            min-width: auto; 
+            max-width: 350px; 
+            margin-bottom: 10px !important; 
+        }
+        
+        .leaflet-control-layers-list { 
+            padding: 2px 10px 15px 8px; 
+            overflow-y: auto; 
+            max-height: 60vh; 
+            color: #444; 
+        }
+        
+        .leaflet-control-layers-tree { font-size: 13px; }
+        
+        .leaflet-control-layers label { 
+            display: flex; 
+            align-items: flex-start; 
+            justify-content: flex-start; 
+            flex-wrap: wrap; 
+            margin-bottom: 8px; 
+            cursor: pointer; 
+        }
+        
+        .leaflet-control-layers-selector + span { 
+            order: 2; 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+            width: auto; 
+        }
 
         /* --- TOGGLE SWITCHES --- */
         .leaflet-control-layers-selector {
             order: -1; appearance: none; -webkit-appearance: none;
-            width: 36px; min-width: 36px; height: 20px; background: #e9ecef; border-radius: 20px;
-            position: relative; cursor: pointer; outline: none; transition: background 0.3s;
-            margin-right: 12px; border: 1px solid #dee2e6;
+            width: 36px; min-width: 36px; height: 20px; 
+            background: #e9ecef; border-radius: 20px;
+            position: relative; cursor: pointer; outline: none; 
+            transition: background 0.3s;
+            margin-left: 0; margin-right: 12px; margin-top: 0; 
+            border: 1px solid #dee2e6;
         }
+        
         .leaflet-control-layers-selector::after {
-            content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px;
-            background: white; border-radius: 50%; transition: transform 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            content: ''; position: absolute; top: 2px; left: 2px; 
+            width: 14px; height: 14px; background: white; border-radius: 50%; 
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
+        
         .leaflet-control-layers-selector:checked { background: #28a745; border-color: #28a745; }
         .leaflet-control-layers-selector:checked::after { transform: translateX(16px); }
+        .leaflet-control-layers-selector:hover { background-color: #dee2e6; }
+        .leaflet-control-layers-selector:checked:hover { background-color: #218838; }
+
         .toggle-blue:checked { background: #007bff !important; border-color: #007bff !important; }
+        .toggle-blue:checked:hover { background-color: #0056b3 !important; }
+
         .toggle-black:checked { background: #000000 !important; border-color: #000000 !important; }
+        .toggle-black:checked:hover { background-color: #333333 !important; }
+
         .toggle-red:checked { background: #dc3545 !important; border-color: #dc3545 !important; }
+        .toggle-red:checked:hover { background-color: #a71d2a !important; }
 
         /* --- SLIDER STYLING --- */
-        .slider-row { padding-left: 0; margin-bottom: 5px; margin-top: 2px; display: block; flex-basis: 100%; }
-        .leaflet-control-layers-selector + span .slider-row { margin-left: -48px; width: calc(100% + 48px); }
-        .slider-label-text { font-size: 12px; color: #6c757d; display: flex; justify-content: space-between; width: 100%; margin-bottom: 5px; font-weight: 500; }
+        .slider-row { 
+            padding-left: 0; padding-right: 0; margin-bottom: 5px; margin-top: 2px; 
+            box-sizing: border-box; display: block; flex-basis: 100%; 
+        }
+        
+        .leaflet-control-layers-selector + span .slider-row { 
+            margin-left: -48px; width: calc(100% + 48px); 
+        }
+        
+        .slider-label-text { 
+            font-size: 13px; color: #6c757d; display: flex; 
+            justify-content: space-between; align-items: center; width: 100%; margin-bottom: 5px; font-weight: 500; 
+        }
+        
         .active-value { font-weight: 600; color: #495057; }
-        #year-tree-display, #period-display, #unified-lc-display, #unified-bm-display { color: #0c8f2b; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+        #year-tree-display, #period-display, #unified-lc-display, #unified-bm-display { 
+            color: #0c8f2b; padding: 2px 6px; border-radius: 4px; 
+        }
         #unified-bm-display { color: #007bff; }
         
         .slider-wrapper { position: relative; width: 100%; height: 6px; display: flex; align-items: center; }
 
         .custom-slider {
-            -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: transparent;
-            outline: none; cursor: pointer; position: relative; z-index: 3; 
-            --track-color: #28a745; --track-light: #d4edda; --value: 100%;
+            -webkit-appearance: none; appearance: none; width: 100%; height: 4px; 
+            background: transparent; outline: none; cursor: pointer; 
+            position: relative; z-index: 3; margin: 0;
+            --track-color: #6c757d; --track-light: #e9ecef; --value: 100%;
         }
-        .opacity-slider { --track-color: #007bff; --track-light: #cce5ff; }
 
         .custom-slider::-webkit-slider-runnable-track { 
             width: 100%; height: 4px; border-radius: 4px; 
             background: linear-gradient(to right, var(--track-light) 0%, var(--track-color) var(--value), #e9ecef var(--value), #e9ecef 100%);
         }
+        
         .custom-slider::-moz-range-track { 
             width: 100%; height: 4px; border-radius: 4px;
             background: linear-gradient(to right, var(--track-light) 0%, var(--track-color) var(--value), #e9ecef var(--value), #e9ecef 100%);
         }
 
         .custom-slider::-webkit-slider-thumb {
-            -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%;
-            background: #fff; border: 1px solid var(--track-color); margin-top: -7px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #fff; margin-top: -7px;
+            border: 1px solid var(--track-color); box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: border-color 0.2s, transform 0.1s;
         }
+        
         .custom-slider::-moz-range-thumb {
             height: 18px; width: 18px; border-radius: 50%; background: #fff;
             border: 1px solid var(--track-color); box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: border-color 0.2s, transform 0.1s;
         }
 
-        .slider-disabled { opacity: 0.4; pointer-events: none; filter: grayscale(100%); }
+        .custom-slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
+        .custom-slider::-moz-range-thumb:hover { transform: scale(1.1); }
+
+        .slider-disabled { opacity: 0.4; pointer-events: none; filter: grayscale(100%); transition: opacity 0.3s ease; }
+        
         .layer-list-hidden { display: none !important; }
-
-        #year-ticks {
-            position: absolute; top: -2px; left: 0; right: 0; height: 4px;
-            pointer-events: none; z-index: 1; display: flex; justify-content: space-between;
-            align-items: center; padding: 0 9px; box-sizing: border-box;
-        }
-        .tick-dot { width: 3px; height: 3px; background-color: #adb5bd; border-radius: 50%; }
+        .leaflet-control-layers-group-label:has(.force-open-label) { pointer-events: none; cursor: default; }
+        .group-title { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 8px; display: block; white-space: nowrap; }
+        .leaflet-control-layers-group-selector { display: none; }
         </style>
     </head>
     <body>
@@ -138,7 +220,8 @@
         <script src="data/AOIGreenNexus_5.js"></script>
         <script src="data/Zambia.js"></script>
         <script>
-        var map = L.map('map', { zoomControl:false, maxZoom:18, minZoom:3 }).fitBounds([[-19.0,23.0],[-9.0,33.0]]);
+        // Changed maxZoom to 14
+        var map = L.map('map', { zoomControl:false, maxZoom:14, minZoom:3 }).fitBounds([[-19.0,23.0],[-9.0,33.0]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com">Leaflet</a>');
         
@@ -187,14 +270,13 @@
         var layer_Zambia = new L.geoJson(json_Zambia, { pane: 'pane_Vectors', style: { color: '#000000', weight: 1.0, fillOpacity: 0 } }).addTo(map);
 
         /* --- UI COMPONENTS --- */
-        var flowsUI = `<div id="flows-slider-wrapper" style="margin-top:-22px; margin-bottom:0px;"><div class="slider-row"><div class="slider-label-text"><span>Period</span><span id="period-display" class="active-value">2020-2024</span></div><div class="slider-wrapper"><div id="year-ticks" style="padding:0 7px;"><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div></div><input type="range" min="0" max="4" value="4" class="custom-slider" id="period-slider"></div></div></div>`;
-        var statusUI = `<div id="status-controls-wrapper" style="margin-top:-22px; margin-bottom:0px;"><div class="slider-row"><div class="slider-label-text"><span>Year</span><span id="year-tree-display" class="active-value">2024</span></div><div class="slider-wrapper"><div id="year-ticks"><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div><div class="tick-dot"></div></div><input type="range" min="0" max="5" value="5" class="custom-slider" id="year-tree-slider"></div></div></div>`;
+        var flowsUI = '<div id="flows-slider-wrapper" style="margin-top:-22px; margin-bottom:30px;"><div class="slider-row"><div class="slider-label-text"><span>Period</span><span id="period-display" class="active-value">2020-2024</span></div><div class="slider-wrapper"><div style="position: absolute; top: -2px; left: 1px; right: 1px; height: 4px; pointer-events: none; z-index: 1; background-image: radial-gradient(circle, #adb5bd 1.5px, transparent 1.5px), radial-gradient(circle, #adb5bd 1.5px, transparent 1.5px); background-size: calc(100% / 4) 100%, 4px 100%; background-position: 0 center, 100% center; background-repeat: repeat-x, no-repeat;"></div><input type="range" min="0" max="4" value="4" class="custom-slider" id="period-slider" style="--track-color: #28a745; --track-light: #d4edda; --value: 100%;"></div></div></div>';
         
-        // Compact Unified LC Slider
-        var unifiedLCOpacityUI = `<div id="unified-lc-wrapper" style="margin-top:-10px; margin-bottom:20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;"><div class="slider-row"><div class="slider-label-text"><span>LC Transparency</span><span id="unified-lc-display">100%</span></div><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider" id="unified-lc-slider"></div></div></div>`;
+        var statusUI = '<div id="status-controls-wrapper" style="margin-top:-22px; margin-bottom:0px;"><div class="slider-row"><div class="slider-label-text"><span>Year</span><span id="year-tree-display" class="active-value">2024</span></div><div class="slider-wrapper"><div style="position: absolute; top: -2px; left: 1px; right: 1px; height: 4px; pointer-events: none; z-index: 1; background-image: radial-gradient(circle, #adb5bd 1.5px, transparent 1.5px), radial-gradient(circle, #adb5bd 1.5px, transparent 1.5px); background-size: calc(100% / 5) 100%, 4px 100%; background-position: 0 center, 100% center; background-repeat: repeat-x, no-repeat;"></div><input type="range" min="0" max="5" value="5" class="custom-slider" id="year-tree-slider" style="--track-color: #28a745; --track-light: #d4edda; --value: 100%;"></div></div></div>';
         
-        // Compact Unified BM Slider (Default 100%)
-        var unifiedBMOpacityUI = `<div id="unified-bm-wrapper" style="margin-top:-10px; margin-bottom:20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;"><div class="slider-row"><div class="slider-label-text"><span>Basemap Transparency</span><span id="unified-bm-display">100%</span></div><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" id="unified-bm-slider"></div></div></div>`;
+        var unifiedLCOpacityUI = '<div id="unified-lc-wrapper" style="margin-top:-25px; margin-bottom:20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;"><div class="slider-row"><div class="slider-label-text"><span>LC Opacity</span><span id="unified-lc-display">100%</span></div><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" id="unified-lc-slider" style="--track-color: #28a745; --track-light: #d4edda; --value: 100%;"></div></div></div>';
+        
+        var unifiedBMOpacityUI = '<div id="unified-bm-wrapper" style="margin-top:-25px; margin-bottom:20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;"><div class="slider-row"><div class="slider-label-text"><span>Basemap Opacity</span><span id="unified-bm-display">100%</span></div><div class="slider-wrapper"><input type="range" min="0" max="1" step="0.1" value="1.0" class="custom-slider opacity-slider" id="unified-bm-slider" style="--track-color: #007bff; --track-light: #cce5ff; --value: 100%;"></div></div></div>';
         
         var tree = [
             {label: 'LC Flows 2000-2024', layer: layer_LCflows20002024_legacy, radioGroup: 'lc' },
@@ -210,14 +292,29 @@
         /* --- STACKING ORDER --- */
         L.control.zoom({ position: 'bottomright' }).addTo(map);
         var lay = L.control.layers.tree(null, tree, { collapsed: false, position: 'bottomright' }).addTo(map);
+        
         var legend = L.control({ position: 'bottomright' });
         legend.onAdd = function () {
             var div = L.DomUtil.create('div', 'legend-control');
             div.innerHTML = `<div class="legend-header">LC legend <i class="fa fa-caret-up"></i></div><img src="legend.png" class="legend-image hidden">`;
+            
             div.querySelector('.legend-header').onclick = function() {
                 var img = div.querySelector('.legend-image');
-                img.classList.toggle('hidden'); this.classList.toggle('header-collapsed');
+                var isOpening = img.classList.contains('hidden');
+                
+                img.classList.toggle('hidden'); 
+                this.classList.toggle('header-collapsed');
                 this.querySelector('i').className = img.classList.contains('hidden') ? 'fa fa-caret-up' : 'fa fa-caret-down';
+                
+                // Accordion Logic: Close Layers panel when expanding Legend
+                if (isOpening) {
+                    var layerList = document.querySelector('.leaflet-control-layers-list');
+                    var layerIcon = document.querySelector('.layer-control-header i');
+                    if (layerList && !layerList.classList.contains('layer-list-hidden')) {
+                        layerList.classList.add('layer-list-hidden');
+                        if (layerIcon) layerIcon.className = 'fa fa-caret-up';
+                    }
+                }
             };
             L.DomEvent.disableClickPropagation(div); return div;
         };
@@ -260,6 +357,10 @@
             }
         });
 
+        // Prevent map interaction while dragging sliders
+        document.addEventListener('mousedown', function(e) { if (e.target.classList.contains('custom-slider')) e.stopPropagation(); });
+        document.addEventListener('click', function(e) { if (e.target.classList.contains('custom-slider')) e.stopPropagation(); });
+
         map.on('overlayadd', function(e) {
             var sw = document.getElementById('status-controls-wrapper'), 
                 fw = document.getElementById('flows-slider-wrapper'),
@@ -289,22 +390,45 @@
 
         setTimeout(function() {
             var list = document.querySelector('.leaflet-control-layers-list');
-            var hdr = document.createElement('div'); hdr.className = 'layer-control-header';
-            hdr.innerHTML = 'Layers&nbsp;&nbsp;<i class="fa fa-caret-down"></i>';
-            list.parentNode.insertBefore(hdr, list);
-            hdr.onclick = function() {
-                list.classList.toggle('layer-list-hidden');
-                this.querySelector('i').className = list.classList.contains('layer-list-hidden') ? 'fa fa-caret-up' : 'fa fa-caret-down';
-            };
+            if (list) {
+                var hdr = document.createElement('div'); 
+                hdr.className = 'layer-control-header';
+                hdr.innerHTML = 'Layers&nbsp;&nbsp;<i class="fa fa-caret-down"></i>';
+                list.parentNode.insertBefore(hdr, list);
+                
+                hdr.onclick = function() {
+                    var isOpening = list.classList.contains('layer-list-hidden');
+                    
+                    list.classList.toggle('layer-list-hidden');
+                    this.querySelector('i').className = list.classList.contains('layer-list-hidden') ? 'fa fa-caret-up' : 'fa fa-caret-down';
+                    
+                    // Accordion Logic: Close Legend when expanding Layers panel
+                    if (isOpening) {
+                        var legImg = document.querySelector('.legend-image');
+                        var legHdr = document.querySelector('.legend-header');
+                        var legIcon = document.querySelector('.legend-header i');
+                        if (legImg && !legImg.classList.contains('hidden')) {
+                            legImg.classList.add('hidden');
+                            if (legHdr) legHdr.classList.add('header-collapsed');
+                            if (legIcon) legIcon.className = 'fa fa-caret-up';
+                        }
+                    }
+                };
+            }
+
             document.querySelectorAll('.leaflet-control-layers label').forEach(l => {
                 var t = l.innerText, i = l.querySelector('input');
+                if (!i) return;
                 if (t.includes('Open Street') || t.includes('Google')) i.classList.add('toggle-blue');
                 if (t.includes('Zambia')) i.classList.add('toggle-black');
                 if (t.includes('AOI')) i.classList.add('toggle-red');
             });
-            document.getElementById('flows-slider-wrapper').classList.add('slider-disabled');
+            
+            var fw = document.getElementById('flows-slider-wrapper');
+            if(fw) fw.classList.add('slider-disabled');
+            
             document.querySelectorAll('.custom-slider').forEach(updFill);
-        }, 300);
+        }, 500);
         </script>
     </body>
 </html>
